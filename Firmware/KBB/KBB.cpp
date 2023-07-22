@@ -99,7 +99,7 @@ void KBB::CopyActualToLastSegment(unsigned char seg){
   memcpy(&LastKeyMap[seg][0], &ActualKeyMap[seg][0], KEYS_IN_SEGS);
 }
 bool KBB::CompareActualAndLastKeys(unsigned char seg){
-  unsigned char index;
+  unsigned char index = 0;
   bool ret = false;
   while(index < KEYS_IN_SEGS){
     PressKeyMap[seg][index]=false;
