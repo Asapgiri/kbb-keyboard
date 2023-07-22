@@ -4,7 +4,14 @@
 #define ADDR_A0 7
 #define ADDR_A1 19
 #define ADDR_A2 18
-#define NUMBER_OF_SEG 8
+#define SEG0 4
+#define SEG1 12
+#define SEG2 6
+#define SEG3 8
+#define SEG4 9
+#define SEG5 10
+#define SEG6 5
+#define SEG7 13
 
 class KBB{
 private:
