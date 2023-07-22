@@ -13,20 +13,23 @@ static unsigned char Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
   {'0', '1', '2', '3', '4', '5', '6', '7'},
 };
 
+
 KBB::KBB(){
   for(unsigned char seg; seg < NUMBER_OF_SEGS; seg++){
     for(unsigned char key; key < KEYS_IN_SEGS; seg++){
-      this->ActualKeyMap[seg][key]=false;
-      this->LastKeyMap[seg][key]=false;
-      this->PressKeyMap[seg][key]=false;
-      this->ReleaseKeyMap[seg][key]=false;
+      this->ActualKeyMap[seg][key]  = false;
+      this->LastKeyMap[seg][key]    = false;
+      this->PressKeyMap[seg][key]   = false;
+      this->ReleaseKeyMap[seg][key] = false;
     }
   }
 }
+
 KBB::~KBB(){
   /*Nothing to do yet*/
 }
-void KBB::begin(){
+
+void KBB::begin() {
   pinMode(ADDR_A0, OUTPUT);
   pinMode(ADDR_A1, OUTPUT);
   pinMode(ADDR_A2, OUTPUT);
@@ -40,70 +43,36 @@ void KBB::begin(){
   pinMode(SEG6, INPUT);
   pinMode(SEG7, INPUT);
 }
-void KBB::ChangeSegment(unsigned char seg){
-  if(seg == 0){
-    digitalWrite(ADDR_A0, LOW);
-    digitalWrite(ADDR_A1, LOW);
-    digitalWrite(ADDR_A2, LOW);
-  }
-  if(seg == 1){
-    digitalWrite(ADDR_A0, HIGH);
-    digitalWrite(ADDR_A1, LOW);
-    digitalWrite(ADDR_A2, LOW);
-  }
-  if(seg == 2){
-    digitalWrite(ADDR_A0, LOW);
-    digitalWrite(ADDR_A1, HIGH);
-    digitalWrite(ADDR_A2, LOW);
-  }
-  if(seg == 3){
-    digitalWrite(ADDR_A0, HIGH);
-    digitalWrite(ADDR_A1, HIGH);
-    digitalWrite(ADDR_A2, LOW);
-  }
-  if(seg == 4){
-    digitalWrite(ADDR_A0, LOW);
-    digitalWrite(ADDR_A1, LOW);
-    digitalWrite(ADDR_A2, HIGH);
-  }
-  if(seg == 5){
-    digitalWrite(ADDR_A0, HIGH);
-    digitalWrite(ADDR_A1, LOW);
-    digitalWrite(ADDR_A2, HIGH);
-  }
-  if(seg == 6){
-    digitalWrite(ADDR_A0, LOW);
-    digitalWrite(ADDR_A1, HIGH);
-    digitalWrite(ADDR_A2, HIGH);
-  }
-  if(seg == 7){
-    digitalWrite(ADDR_A0, HIGH);
-    digitalWrite(ADDR_A1, HIGH);
-    digitalWrite(ADDR_A2, HIGH);
-  }
-  //delay(1000);
+
+void KBB::ChangeSegment(unsigned char seg) {
+  digitalWrite(ADDR_A0, seg & 0x1);
+  digitalWrite(ADDR_A1, seg & 0x2);
+  digitalWrite(ADDR_A2, seg & 0x4);
 }
 
-void KBB::RefreshActualKeyMap(unsigned char seg){
+void KBB::RefreshActualKeyMap(unsigned char seg) {
   /*The function refresh a segment from the keymap*/
-  ActualKeyMap[seg][0] = digitalRead(SEG0) == 0;
-  ActualKeyMap[seg][1] = digitalRead(SEG1) == 0;
-  ActualKeyMap[seg][2] = digitalRead(SEG2) == 0;
-  ActualKeyMap[seg][3] = digitalRead(SEG3) == 0;
-  ActualKeyMap[seg][4] = digitalRead(SEG4) == 0;
-  ActualKeyMap[seg][5] = digitalRead(SEG5) == 0;
-  ActualKeyMap[seg][6] = digitalRead(SEG6) == 0;
-  ActualKeyMap[seg][7] = digitalRead(SEG7) == 0;
+  ActualKeyMap[seg][0] = digitalRead(SEG0);
+  ActualKeyMap[seg][1] = digitalRead(SEG1);
+  ActualKeyMap[seg][2] = digitalRead(SEG2);
+  ActualKeyMap[seg][3] = digitalRead(SEG3);
+  ActualKeyMap[seg][4] = digitalRead(SEG4);
+  ActualKeyMap[seg][5] = digitalRead(SEG5);
+  ActualKeyMap[seg][6] = digitalRead(SEG6);
+  ActualKeyMap[seg][7] = digitalRead(SEG7);
 }
-void KBB::CopyActualToLastSegment(unsigned char seg){
-  memcpy(&LastKeyMap[seg][0], &ActualKeyMap[seg][0], KEYS_IN_SEGS);
+
+void KBB::CopyActualToLastSegment(unsigned char seg) {
+  memcpy(LastKeyMap[seg], ActualKeyMap[seg], KEYS_IN_SEGS);
 }
+
 bool KBB::CompareActualAndLastKeys(unsigned char seg){
-  unsigned char index = 0;
+  unsigned char index;
   bool ret = false;
-  while(index < KEYS_IN_SEGS){
-    PressKeyMap[seg][index]=false;
-    ReleaseKeyMap[seg][index]=false;
+
+  for (index = 0; index < KEYS_IN_SEGS; index++){
+    PressKeyMap[seg][index]   = false;
+    ReleaseKeyMap[seg][index] = false;
 
     if(LastKeyMap[seg][index] != ActualKeyMap[seg][index]){
       if(ActualKeyMap[seg][index]){
@@ -117,6 +86,7 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
     }
     ++index;
   }
+
   while(index < KEYS_IN_SEGS){
     PressKeyMap[seg][index]=false;
     ReleaseKeyMap[seg][index]=false;
@@ -131,8 +101,10 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
     }
     ++index;
   }
+
   return ret;
 }
+
 void KBB::SendChangesToHost(unsigned char seg){
   for(unsigned char key = 0; key < KEYS_IN_SEGS; key++){
     if(PressKeyMap[seg][key]){
