@@ -53,18 +53,18 @@ void KBB::ChangeSegment(unsigned char seg) {
 
 void KBB::RefreshActualKeyMap(unsigned char seg) {
   /*The function refresh a segment from the keymap*/
-  ActualKeyMap[seg][0] = digitalRead(SEG0);
-  ActualKeyMap[seg][1] = digitalRead(SEG1);
-  ActualKeyMap[seg][2] = digitalRead(SEG2);
-  ActualKeyMap[seg][3] = digitalRead(SEG3);
-  ActualKeyMap[seg][4] = digitalRead(SEG4);
-  ActualKeyMap[seg][5] = digitalRead(SEG5);
-  ActualKeyMap[seg][6] = digitalRead(SEG6);
-  ActualKeyMap[seg][7] = digitalRead(SEG7);
+  this->ActualKeyMap[seg][0] = digitalRead(SEG0);
+  this->ActualKeyMap[seg][1] = digitalRead(SEG1);
+  this->ActualKeyMap[seg][2] = digitalRead(SEG2);
+  this->ActualKeyMap[seg][3] = digitalRead(SEG3);
+  this->ActualKeyMap[seg][4] = digitalRead(SEG4);
+  this->ActualKeyMap[seg][5] = digitalRead(SEG5);
+  this->ActualKeyMap[seg][6] = digitalRead(SEG6);
+  this->ActualKeyMap[seg][7] = digitalRead(SEG7);
 }
 
 void KBB::CopyActualToLastSegment(unsigned char seg) {
-  memcpy(LastKeyMap[seg], ActualKeyMap[seg], KEYS_IN_SEGS);
+  memcpy(this->LastKeyMap[seg], this->ActualKeyMap[seg], KEYS_IN_SEGS);
 }
 
 
@@ -73,15 +73,15 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
   bool ret = false;
 
   for (index = 0; index < KEYS_IN_SEGS; index++){
-    PressKeyMap[seg][index]   = false;
-    ReleaseKeyMap[seg][index] = false;
+    this->PressKeyMap[seg][index]   = false;
+    this->ReleaseKeyMap[seg][index] = false;
 
-    if(LastKeyMap[seg][index] != ActualKeyMap[seg][index]){
+    if(this->LastKeyMap[seg][index] != this->ActualKeyMap[seg][index]){
       if(ActualKeyMap[seg][index]){
-        PressKeyMap[seg][index]=true;
+        this->PressKeyMap[seg][index]=true;
       }
       else{
-        ReleaseKeyMap[seg][index]=true;
+        this->ReleaseKeyMap[seg][index]=true;
       }
       ret = true;
       break;
@@ -90,15 +90,15 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
   }
 
   while(index < KEYS_IN_SEGS){
-    PressKeyMap[seg][index]=false;
-    ReleaseKeyMap[seg][index]=false;
+    this->PressKeyMap[seg][index]=false;
+    this->ReleaseKeyMap[seg][index]=false;
     
-    if(LastKeyMap[seg][index] != ActualKeyMap[seg][index]){
-      if(ActualKeyMap[seg][index]){
-        PressKeyMap[seg][index]=true;
+    if(this->LastKeyMap[seg][index] != this->ActualKeyMap[seg][index]){
+      if(this->ActualKeyMap[seg][index]){
+        this->PressKeyMap[seg][index]=true;
       }
       else{
-        ReleaseKeyMap[seg][index]=true;
+        this->ReleaseKeyMap[seg][index]=true;
       }
     }
     ++index;
@@ -110,11 +110,13 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
 
 void KBB::SendChangesToHost(unsigned char seg){
   for(unsigned char key = 0; key < KEYS_IN_SEGS; key++){
-    if(PressKeyMap[seg][key]){
-      Keyboard.press(Layout[seg][key]);
+    if(this->PressKeyMap[seg][key]){
+      //Keyboard.press(Layout[seg][key]);
+      Serial.print(Layout[seg][key]);
     }
     else if (ReleaseKeyMap[seg][key]){
-      Keyboard.release(Layout[seg][key]);
+      //Keyboard.release(Layout[seg][key]);
+      Serial.print(Layout[seg][key]);
     }
   }
 }
