@@ -49,18 +49,19 @@ void KBB::ChangeSegment(unsigned char seg) {
   digitalWrite(ADDR_A0, seg & 0x1);
   digitalWrite(ADDR_A1, seg & 0x2);
   digitalWrite(ADDR_A2, seg & 0x4);
+  delay(60);
 }
 
 void KBB::RefreshActualKeyMap(unsigned char seg) {
   /*The function refresh a segment from the keymap*/
-  this->ActualKeyMap[seg][0] = digitalRead(SEG0);
-  this->ActualKeyMap[seg][1] = digitalRead(SEG1);
-  this->ActualKeyMap[seg][2] = digitalRead(SEG2);
-  this->ActualKeyMap[seg][3] = digitalRead(SEG3);
-  this->ActualKeyMap[seg][4] = digitalRead(SEG4);
-  this->ActualKeyMap[seg][5] = digitalRead(SEG5);
-  this->ActualKeyMap[seg][6] = digitalRead(SEG6);
-  this->ActualKeyMap[seg][7] = digitalRead(SEG7);
+  this->ActualKeyMap[seg][0] = digitalRead(SEG0) == 0;
+  this->ActualKeyMap[seg][1] = digitalRead(SEG1) == 0;
+  this->ActualKeyMap[seg][2] = digitalRead(SEG2) == 0;
+  this->ActualKeyMap[seg][3] = digitalRead(SEG3) == 0;
+  this->ActualKeyMap[seg][4] = digitalRead(SEG4) == 0;
+  this->ActualKeyMap[seg][5] = digitalRead(SEG5) == 0;
+  this->ActualKeyMap[seg][6] = digitalRead(SEG6) == 0;
+  this->ActualKeyMap[seg][7] = digitalRead(SEG7) == 0;
 }
 
 void KBB::CopyActualToLastSegment(unsigned char seg) {
@@ -112,11 +113,11 @@ void KBB::SendChangesToHost(unsigned char seg){
   for(unsigned char key = 0; key < KEYS_IN_SEGS; key++){
     if(this->PressKeyMap[seg][key]){
       //Keyboard.press(Layout[seg][key]);
-      Serial.print(Layout[seg][key]);
+      Serial.println(Layout[seg][key]);
     }
     else if (ReleaseKeyMap[seg][key]){
       //Keyboard.release(Layout[seg][key]);
-      Serial.print(Layout[seg][key]);
+      Serial.println(Layout[seg][key]);
     }
   }
 }
