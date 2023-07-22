@@ -25,10 +25,9 @@ private:
   bool PressKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
   bool ReleaseKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
 
-  void ChangeSegment(unsigned char seg);
-
 public:
   void begin();
+  void ChangeSegment(unsigned char seg);
   void RefreshActualKeyMap(unsigned char seg);
   bool CompareActualAndLastKeys(unsigned char seg);
   void CopyActualToLastSegment(unsigned char seg);
