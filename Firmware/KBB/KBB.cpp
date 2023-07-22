@@ -25,6 +25,7 @@ KBB::KBB(){
   }
 }
 
+
 KBB::~KBB(){
   /*Nothing to do yet*/
 }
@@ -66,6 +67,7 @@ void KBB::CopyActualToLastSegment(unsigned char seg) {
   memcpy(LastKeyMap[seg], ActualKeyMap[seg], KEYS_IN_SEGS);
 }
 
+
 bool KBB::CompareActualAndLastKeys(unsigned char seg){
   unsigned char index;
   bool ret = false;
@@ -104,6 +106,7 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
 
   return ret;
 }
+
 
 void KBB::SendChangesToHost(unsigned char seg){
   for(unsigned char key = 0; key < KEYS_IN_SEGS; key++){
