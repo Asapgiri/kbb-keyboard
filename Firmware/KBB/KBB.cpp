@@ -18,6 +18,15 @@ void KBB::begin(){
   pinMode(ADDR_A0, OUTPUT);
   pinMode(ADDR_A1, OUTPUT);
   pinMode(ADDR_A2, OUTPUT);
+
+  pinMode(SEG0, INPUT);
+  pinMode(SEG1, INPUT);
+  pinMode(SEG2, INPUT);
+  pinMode(SEG3, INPUT);
+  pinMode(SEG4, INPUT);
+  pinMode(SEG5, INPUT);
+  pinMode(SEG6, INPUT);
+  pinMode(SEG7, INPUT);
 }
 void KBB::ChangeSegment(unsigned char seg){
   if(seg == 0){
