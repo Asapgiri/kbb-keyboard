@@ -23,9 +23,11 @@ KBB::KBB(){
     }
   }
 }
+
 KBB::~KBB(){
   /*Nothing to do yet*/
 }
+
 void KBB::begin(){
   pinMode(ADDR_A0, OUTPUT);
   pinMode(ADDR_A1, OUTPUT);
@@ -40,6 +42,7 @@ void KBB::begin(){
   pinMode(SEG6, INPUT);
   pinMode(SEG7, INPUT);
 }
+
 void KBB::ChangeSegment(unsigned char seg){
   if(seg == 0){
     digitalWrite(ADDR_A0, LOW);
@@ -81,7 +84,7 @@ void KBB::ChangeSegment(unsigned char seg){
     digitalWrite(ADDR_A1, HIGH);
     digitalWrite(ADDR_A2, HIGH);
   }
-  //delay(1000);
+  delay(1);
 }
 
 void KBB::RefreshActualKeyMap(unsigned char seg){
@@ -95,9 +98,11 @@ void KBB::RefreshActualKeyMap(unsigned char seg){
   ActualKeyMap[seg][6] = digitalRead(SEG6) == 0;
   ActualKeyMap[seg][7] = digitalRead(SEG7) == 0;
 }
+
 void KBB::CopyActualToLastSegment(unsigned char seg){
   memcpy(&LastKeyMap[seg][0], &ActualKeyMap[seg][0], KEYS_IN_SEGS);
 }
+
 bool KBB::CompareActualAndLastKeys(unsigned char seg){
   unsigned char index = 0;
   bool ret = false;
@@ -133,6 +138,7 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
   }
   return ret;
 }
+
 void KBB::SendChangesToHost(unsigned char seg){
   for(unsigned char key = 0; key < KEYS_IN_SEGS; key++){
     if(PressKeyMap[seg][key]){
