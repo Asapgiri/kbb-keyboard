@@ -20,10 +20,10 @@
 
 class KBB{
 private:
-  bool ActualKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
-  bool LastKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
-  bool PressKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
-  bool ReleaseKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
+  bool ActualKeyMap[NUMBER_OF_SEGS * KEYS_IN_SEGS];
+  bool LastKeyMap[NUMBER_OF_SEGS * KEYS_IN_SEGS];
+  bool PressKeyMap[NUMBER_OF_SEGS * KEYS_IN_SEGS];
+  bool ReleaseKeyMap[NUMBER_OF_SEGS * KEYS_IN_SEGS];
 
 public:
   void begin();
@@ -37,3 +37,9 @@ public:
 };
 
 #endif _KBB_H_
+
+
+
+
+
+

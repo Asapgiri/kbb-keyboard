@@ -2,28 +2,17 @@
 #include <Arduino.h>
 #include <Keyboard.h>
 
-static unsigned char Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-};
-
-
 KBB::KBB(){
   for(unsigned char seg; seg < NUMBER_OF_SEGS; seg++){
     for(unsigned char key; key < KEYS_IN_SEGS; seg++){
-      this->ActualKeyMap[seg][key]  = false;
-      this->LastKeyMap[seg][key]    = false;
-      this->PressKeyMap[seg][key]   = false;
-      this->ReleaseKeyMap[seg][key] = false;
+      this->ActualKeyMap[(seg * KEYS_IN_SEGS) + key]  = false;
+      this->LastKeyMap[(seg * KEYS_IN_SEGS) + key]    = false;
+      this->PressKeyMap[(seg * KEYS_IN_SEGS) + key]   = false;
+      this->ReleaseKeyMap[(seg * KEYS_IN_SEGS) + key] = false;
     }
   }
 }
+
 
 
 KBB::~KBB(){
@@ -49,57 +38,58 @@ void KBB::ChangeSegment(unsigned char seg) {
   digitalWrite(ADDR_A0, seg & 0x1);
   digitalWrite(ADDR_A1, seg & 0x2);
   digitalWrite(ADDR_A2, seg & 0x4);
-  delay(60);
+  delay(50);
 }
 
 void KBB::RefreshActualKeyMap(unsigned char seg) {
   /*The function refresh a segment from the keymap*/
-  this->ActualKeyMap[seg][0] = digitalRead(SEG0) == 0;
-  this->ActualKeyMap[seg][1] = digitalRead(SEG1) == 0;
-  this->ActualKeyMap[seg][2] = digitalRead(SEG2) == 0;
-  this->ActualKeyMap[seg][3] = digitalRead(SEG3) == 0;
-  this->ActualKeyMap[seg][4] = digitalRead(SEG4) == 0;
-  this->ActualKeyMap[seg][5] = digitalRead(SEG5) == 0;
-  this->ActualKeyMap[seg][6] = digitalRead(SEG6) == 0;
-  this->ActualKeyMap[seg][7] = digitalRead(SEG7) == 0;
+  this->ActualKeyMap[(seg * KEYS_IN_SEGS)]     = digitalRead(SEG0) == 0;
+  this->ActualKeyMap[(seg * KEYS_IN_SEGS) + 1] = digitalRead(SEG1) == 0;
+  this->ActualKeyMap[(seg * KEYS_IN_SEGS) + 2] = digitalRead(SEG2) == 0;
+  this->ActualKeyMap[(seg * KEYS_IN_SEGS) + 3] = digitalRead(SEG3) == 0;
+  this->ActualKeyMap[(seg * KEYS_IN_SEGS) + 4] = digitalRead(SEG4) == 0;
+  this->ActualKeyMap[(seg * KEYS_IN_SEGS) + 5] = digitalRead(SEG5) == 0;
+  this->ActualKeyMap[(seg * KEYS_IN_SEGS) + 6] = digitalRead(SEG6) == 0;
+  this->ActualKeyMap[(seg * KEYS_IN_SEGS) + 7] = digitalRead(SEG7) == 0;
 }
 
 void KBB::CopyActualToLastSegment(unsigned char seg) {
-  memcpy(this->LastKeyMap[seg], this->ActualKeyMap[seg], KEYS_IN_SEGS);
+  memcpy(&this->LastKeyMap[seg * KEYS_IN_SEGS], &this->ActualKeyMap[seg * KEYS_IN_SEGS], KEYS_IN_SEGS);
 }
 
 
 bool KBB::CompareActualAndLastKeys(unsigned char seg){
-  unsigned char index;
+  unsigned char index = 0;
   bool ret = false;
 
-  for (index = 0; index < KEYS_IN_SEGS; index++){
-    this->PressKeyMap[seg][index]   = false;
-    this->ReleaseKeyMap[seg][index] = false;
+  while(index < KEYS_IN_SEGS){
+    this->PressKeyMap[(seg * KEYS_IN_SEGS) + index]   = false;
+    this->ReleaseKeyMap[(seg * KEYS_IN_SEGS) + index] = false;
 
-    if(this->LastKeyMap[seg][index] != this->ActualKeyMap[seg][index]){
-      if(ActualKeyMap[seg][index]){
-        this->PressKeyMap[seg][index]=true;
+    if(this->LastKeyMap[(seg * KEYS_IN_SEGS) + index] != this->ActualKeyMap[(seg * KEYS_IN_SEGS) + index]){
+      if(ActualKeyMap[(seg * KEYS_IN_SEGS) + index]){
+        this->PressKeyMap[(seg * KEYS_IN_SEGS) + index]=true;
       }
       else{
-        this->ReleaseKeyMap[seg][index]=true;
+        this->ReleaseKeyMap[(seg * KEYS_IN_SEGS) + index]=true;
       }
       ret = true;
+      ++index;
       break;
     }
     ++index;
   }
 
   while(index < KEYS_IN_SEGS){
-    this->PressKeyMap[seg][index]=false;
-    this->ReleaseKeyMap[seg][index]=false;
+    this->PressKeyMap[(seg * KEYS_IN_SEGS) + index]=false;
+    this->ReleaseKeyMap[(seg * KEYS_IN_SEGS) + index]=false;
     
-    if(this->LastKeyMap[seg][index] != this->ActualKeyMap[seg][index]){
-      if(this->ActualKeyMap[seg][index]){
-        this->PressKeyMap[seg][index]=true;
+    if(this->LastKeyMap[(seg * KEYS_IN_SEGS) + index] != this->ActualKeyMap[(seg * KEYS_IN_SEGS) + index]){
+      if(this->ActualKeyMap[(seg * KEYS_IN_SEGS) + index]){
+        this->PressKeyMap[(seg * KEYS_IN_SEGS) + index]=true;
       }
       else{
-        this->ReleaseKeyMap[seg][index]=true;
+        this->ReleaseKeyMap[(seg * KEYS_IN_SEGS) + index]=true;
       }
     }
     ++index;
@@ -111,13 +101,16 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
 
 void KBB::SendChangesToHost(unsigned char seg){
   for(unsigned char key = 0; key < KEYS_IN_SEGS; key++){
-    if(this->PressKeyMap[seg][key]){
+    if(this->PressKeyMap[(seg * KEYS_IN_SEGS) + key]){
       //Keyboard.press(Layout[seg][key]);
-      Serial.println(Layout[seg][key]);
+      Serial.print(seg);
+      Serial.print(", ");
+      Serial.print(key);
+      Serial.println();
     }
-    else if (ReleaseKeyMap[seg][key]){
+    else if (this->ReleaseKeyMap[(seg * KEYS_IN_SEGS) + key]){
       //Keyboard.release(Layout[seg][key]);
-      Serial.println(Layout[seg][key]);
+      
     }
   }
 }
