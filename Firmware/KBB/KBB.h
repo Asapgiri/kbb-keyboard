@@ -13,15 +13,26 @@
 #define SEG6 5
 #define SEG7 13
 
-#define NUMBER_OF_SEGS 8
-#define KEYS_IN_SEGS 8
+#define NUMBER_OF_SEGS  8
+#define KEYS_IN_SEGS    8
+
+#define FUNCTION_KEY    0x1
+
+struct char_holder {
+  char def;
+  char fn;
+  void (*fn_press)(void);
+  void (*fn_release)(void);
+};
 
 class KBB{
 private:
+  bool fn_pressed;
   bool ActualKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
   bool LastKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
   bool PressKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
   bool ReleaseKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
+
 public:
   void ChangeSegment(unsigned char seg);
   void begin();
