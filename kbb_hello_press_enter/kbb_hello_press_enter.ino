@@ -1,10 +1,17 @@
 #include <Keyboard.h>
 
-#define ADDRESS0  7   // phisical pin 1
-#define ADDRESS1  19  // phisical pin 37
-#define ADDRESS2  18  // phisical pin 36
+#define ADDRESS0  7
+#define ADDRESS1  19
+#define ADDRESS2  18
 
-#define SEG7      13  // phisical pin 32
+#define SEG0      
+#define SEG1      
+#define SEG2      
+#define SEG3      
+#define SEG4      
+#define SEG5      
+#define SEG6      
+#define SEG7      13
 
 bool enter_press, stored_enter_press;
 
@@ -16,7 +23,7 @@ void read_all_pins(void) {
 
 void setup() {
     // put your setup code here, to run once:
-    //Serial.begin(9600);
+    Serial.begin(9600);
     Keyboard.begin();
     
     pinMode(SEG7, INPUT);
@@ -34,6 +41,7 @@ void loop() {
     //Serial.println(" BKK keyboard hello!");
     
     if (stored_enter_press != enter_press) {
+        Serial.println(PORTC);
         stored_enter_press = enter_press;
         if (enter_press) {
             //Serial.println("Enter has been released.");
