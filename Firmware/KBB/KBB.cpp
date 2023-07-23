@@ -182,6 +182,16 @@ void KBB::SendChangesToHost(unsigned char seg) {
       continue;
     }
 
+    if (FUNCTION_KEY == Layout[seg][key].def) {
+      if(PressKeyMap[seg][key]) {
+        fn_pressed = true;
+      }
+      else if (ReleaseKeyMap[seg][key]) {
+        fn_pressed = false;
+      }
+      continue;
+    }
+
     if (fn_pressed) {
       if(PressKeyMap[seg][key]){
         if (Layout[seg][key].fn)        Keyboard.press(Layout[seg][key].fn);
