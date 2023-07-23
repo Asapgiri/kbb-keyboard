@@ -3,14 +3,14 @@
 #include <Keyboard.h>
 
 static unsigned char Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
-  {'0', '1', '2', '3', '4', '5', '6', '7'},
+  {'A', '1', '2', '3', '4', '5', '6', '7'},
+  {'B', '1', '2', '3', '4', '5', '6', '7'},
+  {'C', '1', '2', '3', '4', '5', '6', '7'},
+  {'D', '1', '2', '3', '4', '5', '6', '7'},
+  {'E', '1', '2', '3', '4', '5', '6', '7'},
+  {'F', '1', '2', '3', '4', '5', '6', '7'},
+  {'G', '1', '2', '3', '4', '5', '6', '7'},
+  {'H', '1', '2', '3', '4', '5', '6', '7'},
 };
 
 KBB::KBB(){
@@ -44,46 +44,9 @@ void KBB::begin(){
 }
 
 void KBB::ChangeSegment(unsigned char seg){
-  if(seg == 0){
-    digitalWrite(ADDR_A0, LOW);
-    digitalWrite(ADDR_A1, LOW);
-    digitalWrite(ADDR_A2, LOW);
-  }
-  if(seg == 1){
-    digitalWrite(ADDR_A0, HIGH);
-    digitalWrite(ADDR_A1, LOW);
-    digitalWrite(ADDR_A2, LOW);
-  }
-  if(seg == 2){
-    digitalWrite(ADDR_A0, LOW);
-    digitalWrite(ADDR_A1, HIGH);
-    digitalWrite(ADDR_A2, LOW);
-  }
-  if(seg == 3){
-    digitalWrite(ADDR_A0, HIGH);
-    digitalWrite(ADDR_A1, HIGH);
-    digitalWrite(ADDR_A2, LOW);
-  }
-  if(seg == 4){
-    digitalWrite(ADDR_A0, LOW);
-    digitalWrite(ADDR_A1, LOW);
-    digitalWrite(ADDR_A2, HIGH);
-  }
-  if(seg == 5){
-    digitalWrite(ADDR_A0, HIGH);
-    digitalWrite(ADDR_A1, LOW);
-    digitalWrite(ADDR_A2, HIGH);
-  }
-  if(seg == 6){
-    digitalWrite(ADDR_A0, LOW);
-    digitalWrite(ADDR_A1, HIGH);
-    digitalWrite(ADDR_A2, HIGH);
-  }
-  if(seg == 7){
-    digitalWrite(ADDR_A0, HIGH);
-    digitalWrite(ADDR_A1, HIGH);
-    digitalWrite(ADDR_A2, HIGH);
-  }
+  digitalWrite(ADDR_A0, seg & 0x1);
+  digitalWrite(ADDR_A1, seg & 0x2);
+  digitalWrite(ADDR_A2, seg & 0x4);
   delay(1);
 }
 
@@ -142,20 +105,10 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
 void KBB::SendChangesToHost(unsigned char seg){
   for(unsigned char key = 0; key < KEYS_IN_SEGS; key++){
     if(PressKeyMap[seg][key]){
-      //Keyboard.press(Layout[seg][key]);
-      Serial.print("Press: ");
-      Serial.print(seg);
-      Serial.print(", ");
-      Serial.print(key);
-      Serial.println();
+      Keyboard.press(Layout[seg][key]);
     }
     else if (ReleaseKeyMap[seg][key]){
-      //Keyboard.release(Layout[seg][key]);
-      Serial.print("Release: ");
-      Serial.print(seg);
-      Serial.print(", ");
-      Serial.print(key);
-      Serial.println();
+      Keyboard.release(Layout[seg][key]);
     }
   }
 }
