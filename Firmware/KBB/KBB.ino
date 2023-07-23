@@ -2,6 +2,7 @@
 #include <Keyboard.h>
 
 static KBB *MainInterface = nullptr;
+static unsigned char segment = 0;
 
 void setup() {
   Serial.begin(115200);

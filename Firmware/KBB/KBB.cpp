@@ -2,7 +2,6 @@
 #include <Arduino.h>
 #include <Keyboard.h>
 
-
 static unsigned char Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
   {'A', '1', '2', '3', '4', '5', '6', '7'},
   {'B', '1', '2', '3', '4', '5', '6', '7'},
@@ -17,10 +16,10 @@ static unsigned char Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
 KBB::KBB(){
   for(unsigned char seg; seg < NUMBER_OF_SEGS; seg++){
     for(unsigned char key; key < KEYS_IN_SEGS; seg++){
-      ActualKeyMap[seg][key]=false;
-      LastKeyMap[seg][key]=false;
-      PressKeyMap[seg][key]=false;
-      ReleaseKeyMap[seg][key]=false;
+      this->ActualKeyMap[seg][key]=false;
+      this->LastKeyMap[seg][key]=false;
+      this->PressKeyMap[seg][key]=false;
+      this->ReleaseKeyMap[seg][key]=false;
     }
   }
 }
