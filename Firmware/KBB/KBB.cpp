@@ -2,6 +2,18 @@
 #include <Arduino.h>
 #include <Keyboard.h>
 
+
+static unsigned char Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
+  {'A', '1', '2', '3', '4', '5', '6', '7'},
+  {'B', '1', '2', '3', '4', '5', '6', '7'},
+  {'C', '1', '2', '3', '4', '5', '6', '7'},
+  {'D', '1', '2', '3', '4', '5', '6', '7'},
+  {'E', '1', '2', '3', '4', '5', '6', '7'},
+  {'F', '1', '2', '3', '4', '5', '6', '7'},
+  {'G', '1', '2', '3', '4', '5', '6', '7'},
+  {'H', '1', '2', '3', '4', '5', '6', '7'},
+};
+
 KBB::KBB(){
   for(unsigned char seg; seg < NUMBER_OF_SEGS; seg++){
     for(unsigned char key; key < KEYS_IN_SEGS; seg++){
@@ -34,11 +46,11 @@ void KBB::begin() {
   pinMode(SEG7, INPUT);
 }
 
-void KBB::ChangeSegment(unsigned char seg) {
+void KBB::ChangeSegment(unsigned char seg){
   digitalWrite(ADDR_A0, seg & 0x1);
   digitalWrite(ADDR_A1, seg & 0x2);
   digitalWrite(ADDR_A2, seg & 0x4);
-  delay(50);
+  delay(1);
 }
 
 void KBB::RefreshActualKeyMap(unsigned char seg) {

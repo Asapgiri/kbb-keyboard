@@ -11,14 +11,14 @@ void setup() {
 }
 
 void loop() {
-  while(1){
-    for(unsigned char segment = 0; segment< NUMBER_OF_SEGS; segment++){
-      MainInterface->ChangeSegment(segment);                //Find the next Target
-      MainInterface->RefreshActualKeyMap(segment);          //Refresh the actually pressed keys map
-      if(MainInterface->CompareActualAndLastKeys(segment)){ //If it changed
-        MainInterface->SendChangesToHost(segment);          //Send the changes to host
-        MainInterface->CopyActualToLastSegment(segment);    //Copy the actual segment to the last
-      }
-    }
+  MainInterface->ChangeSegment(segment);                //Find the next Target
+  MainInterface->RefreshActualKeyMap(segment);          //Refresh the actually pressed keys map
+  if(MainInterface->CompareActualAndLastKeys(segment)){ //If it changed
+    MainInterface->SendChangesToHost(segment);          //Send the changes to host
+    MainInterface->CopyActualToLastSegment(segment);    //Copy the actual segment to the last
+  }
+  ++segment;
+  if (segment == 8 ){
+    segment = 0;
   }
 }
