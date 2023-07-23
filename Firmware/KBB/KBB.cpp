@@ -142,10 +142,20 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
 void KBB::SendChangesToHost(unsigned char seg){
   for(unsigned char key = 0; key < KEYS_IN_SEGS; key++){
     if(PressKeyMap[seg][key]){
-      Keyboard.press(Layout[seg][key]);
+      //Keyboard.press(Layout[seg][key]);
+      Serial.print("Press: ");
+      Serial.print(seg);
+      Serial.print(", ");
+      Serial.print(key);
+      Serial.println();
     }
     else if (ReleaseKeyMap[seg][key]){
-      Keyboard.release(Layout[seg][key]);
+      //Keyboard.release(Layout[seg][key]);
+      Serial.print("Release: ");
+      Serial.print(seg);
+      Serial.print(", ");
+      Serial.print(key);
+      Serial.println();
     }
   }
 }

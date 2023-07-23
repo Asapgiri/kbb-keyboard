@@ -19,4 +19,7 @@ void loop() {
     MainInterface->CopyActualToLastSegment(segment);    //Copy the actual segment to the last
   }
   ++segment;
+  if (segment == 8 ){
+    segment = 0;
+  }
 }
