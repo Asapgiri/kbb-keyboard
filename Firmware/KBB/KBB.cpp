@@ -47,7 +47,7 @@ void KBB::ChangeSegment(unsigned char seg){
   digitalWrite(ADDR_A0, seg & 0x1);
   digitalWrite(ADDR_A1, seg & 0x2);
   digitalWrite(ADDR_A2, seg & 0x4);
-  delay(1);
+  delayMicroseconds(50);
 }
 
 void KBB::RefreshActualKeyMap(unsigned char seg){
