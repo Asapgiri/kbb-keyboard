@@ -24,10 +24,12 @@
 #define PIN_LED2          0
 #define PIN_LED_CAPSLOCK  PIN_LED0
 #define PIN_LED_WINLOCK   PIN_LED1
+#define PIN_LED_FNLOCK    PIN_LED2
 
 
-#define NUMBER_OF_SEGS  8
-#define KEYS_IN_SEGS    8
+#define NUMBER_OF_ARROWS  4
+#define NUMBER_OF_SEGS    8
+#define KEYS_IN_SEGS      8
 
 #define KEY_LEFT_WIN    0x5B
 #define KEY_LEFT_SLEEP  0x5F
@@ -55,6 +57,8 @@ private:
   bool LastKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
   bool PressKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
   bool ReleaseKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
+
+  void HandleSendChange(struct char_holder* key);
 
 public:
   void ChangeSegment(unsigned char seg);
