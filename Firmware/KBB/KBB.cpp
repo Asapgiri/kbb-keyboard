@@ -110,28 +110,43 @@ static struct char_holder Layout_Arrows[NUMBER_OF_ARROWS] = {
     { def: KEY_RIGHT_ARROW,   fn: NULL,               fn_press: key_fn_lock,  fn_release: NULL }
 };
 
+static unsigned int pin_map_main[NUMBER_OF_SEGS] = {
+  PIN_SEG0,
+  PIN_SEG1,
+  PIN_SEG2,
+  PIN_SEG3,
+  PIN_SEG4,
+  PIN_SEG5,
+  PIN_SEG6,
+  PIN_SEG7
+};
+
+static unsigned int pin_map_arrows[NUMBER_OF_ARROWS] = {
+  PIN_ARROW_UP,
+  PIN_ARROW_DOWN,
+  PIN_ARROW_LEFT,
+  PIN_ARROW_RIGHT
+};
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Public fields
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-KBB::KBB(){
+KBB::KBB() {
   fn_pressed = false;
-  for(unsigned char seg; seg < NUMBER_OF_SEGS; seg++){
-    for(unsigned char key; key < KEYS_IN_SEGS; seg++){
-      this->ActualKeyMap[seg][key]=false;
-      this->LastKeyMap[seg][key]=false;
-      this->PressKeyMap[seg][key]=false;
-      this->ReleaseKeyMap[seg][key]=false;
-    }
-  }
+
+  memset(KeyMapMain,   false, sizeof(KeyMapMain));
+  memset(KeyMapArrows, false, sizeof(KeyMapArrows));
 }
 
-KBB::~KBB(){
+KBB::~KBB() {
   /*Nothing to do yet*/
 }
 
-void KBB::begin(){
+void KBB::begin() {
+  unsigned int i;
+  
   pinMode(PIN_ADDR_A0, OUTPUT);
   pinMode(PIN_ADDR_A1, OUTPUT);
   pinMode(PIN_ADDR_A2, OUTPUT);
@@ -140,78 +155,68 @@ void KBB::begin(){
   pinMode(PIN_LED1, OUTPUT);
   pinMode(PIN_LED2, OUTPUT);
 
-  pinMode(PIN_SEG0, INPUT);
-  pinMode(PIN_SEG1, INPUT);
-  pinMode(PIN_SEG2, INPUT);
-  pinMode(PIN_SEG3, INPUT);
-  pinMode(PIN_SEG4, INPUT);
-  pinMode(PIN_SEG5, INPUT);
-  pinMode(PIN_SEG6, INPUT);
-  pinMode(PIN_SEG7, INPUT);
-
-  pinMode(PIN_ARROW_UP,    INPUT_PULLUP);
-  pinMode(PIN_ARROW_DOWN,  INPUT_PULLUP);
-  pinMode(PIN_ARROW_LEFT,  INPUT_PULLUP);
-  pinMode(PIN_ARROW_RIGHT, INPUT_PULLUP);
+  for (i = 0; i < NUMBER_OF_SEGS; i++) {
+    pinMode(pin_map_main[i], INPUT);
+  }
+  for (i = 0; i < NUMBER_OF_ARROWS; i++) {
+    pinMode(pin_map_arrows[i], INPUT_PULLUP);
+  }
 }
 
-void KBB::ChangeSegment(unsigned char seg){
+void KBB::ChangeSegment(unsigned int seg) {
+  segment = seg & 0x7;
   digitalWrite(PIN_ADDR_A0, seg & 0x1);
   digitalWrite(PIN_ADDR_A1, seg & 0x2);
   digitalWrite(PIN_ADDR_A2, seg & 0x4);
   delayMicroseconds(50);
 }
 
-void KBB::RefreshActualKeyMap(unsigned char seg){
+void KBB::RefreshKeyMap()  {
+  unsigned int i;
   /*The function refresh a segment from the keymap*/
-  ActualKeyMap[seg][0] = digitalRead(PIN_SEG0) == 0;
-  ActualKeyMap[seg][1] = digitalRead(PIN_SEG1) == 0;
-  ActualKeyMap[seg][2] = digitalRead(PIN_SEG2) == 0;
-  ActualKeyMap[seg][3] = digitalRead(PIN_SEG3) == 0;
-  ActualKeyMap[seg][4] = digitalRead(PIN_SEG4) == 0;
-  ActualKeyMap[seg][5] = digitalRead(PIN_SEG5) == 0;
-  ActualKeyMap[seg][6] = digitalRead(PIN_SEG6) == 0;
-  ActualKeyMap[seg][7] = digitalRead(PIN_SEG7) == 0;
+  for (i = 0; i < NUMBER_OF_SEGS; i++) {
+    KeyMapMain[segment][i].actual = !digitalRead(pin_map_main[i]);
+  }
+  for (i = 0; i < NUMBER_OF_ARROWS; i++) {
+    KeyMapArrows[i].actual = !digitalRead(pin_map_arrows[i]);
+  }
 }
 
-void KBB::CopyActualToLastSegment(unsigned char seg){
-  memcpy(&LastKeyMap[seg][0], &ActualKeyMap[seg][0], KEYS_IN_SEGS);
+void KBB::SaveToPastSegment() {
+  unsigned int i;
+  for (i = 0; i < KEYS_IN_SEGS; i++) {
+    KeyMapMain[segment][i].last = KeyMapMain[segment][i].actual;
+  }
+  for (i = 0; i < NUMBER_OF_ARROWS; i++) {
+    KeyMapArrows[i].last = KeyMapArrows[i].actual;
+  }
 }
 
-bool KBB::CompareActualAndLastKeys(unsigned char seg){
-  unsigned char index = 0;
+bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len) {
+  unsigned int index = 0;
   bool ret = false;
-  while(index < KEYS_IN_SEGS){
-    PressKeyMap[seg][index]=false;
-    ReleaseKeyMap[seg][index]=false;
 
-    if(LastKeyMap[seg][index] != ActualKeyMap[seg][index]){
-      if(ActualKeyMap[seg][index]){
-        PressKeyMap[seg][index]=true;
+  for (index = 0; index < len; index++) {
+    keymap[index].press   = false;
+    keymap[index].release = false;
+
+    if(keymap[index].last != keymap[index].actual) {
+      if(keymap[index].actual) {
+        keymap[index].press = true;
       }
       else{
-        ReleaseKeyMap[seg][index]=true;
+        keymap[index].release = true;
       }
       ret = true;
-      break;
     }
-    ++index;
   }
-  while(index < KEYS_IN_SEGS){
-    PressKeyMap[seg][index]=false;
-    ReleaseKeyMap[seg][index]=false;
 
-    if(LastKeyMap[seg][index] != ActualKeyMap[seg][index]){
-      if(ActualKeyMap[seg][index]){
-        PressKeyMap[seg][index]=true;
-      }
-      else{
-        ReleaseKeyMap[seg][index]=true;
-      }
-    }
-    ++index;
-  }
   return ret;
+}
+
+bool KBB::CompareLastKeys() {
+  return CompareLastKeys(KeyMapMain[segment], NUMBER_OF_SEGS)   ||
+         CompareLastKeys(KeyMapArrows,        NUMBER_OF_ARROWS);
 }
 
 void KBB::HandleSendChange(struct char_holder* key, bool press) {
@@ -249,10 +254,16 @@ void KBB::HandleSendChange(struct char_holder* key, bool press) {
 }
 
 
-void KBB::SendChangesToHost(unsigned char seg) {
-  for(unsigned char key = 0; key < KEYS_IN_SEGS; key++) {
-    if (PressKeyMap[seg][key] || ReleaseKeyMap[seg][key]) {
-      this->HandleSendChange(&Layout[seg][key], PressKeyMap[seg][key]);
+void KBB::SendSegment() {
+  int key;
+  for(key = 0; key < KEYS_IN_SEGS; key++) {
+    if (KeyMapMain[segment][key].press || KeyMapMain[segment][key].release) {
+      this->HandleSendChange(&Layout[segment][key], KeyMapMain[segment][key].press);
+    }
+  }
+  for(key = 0; key < NUMBER_OF_ARROWS; key++) {
+    if (KeyMapArrows[key].press || KeyMapArrows[key].release) {
+      this->HandleSendChange(&Layout_Arrows[key], KeyMapArrows[key].press);
     }
   }
 }

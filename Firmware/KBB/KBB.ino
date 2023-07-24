@@ -12,12 +12,12 @@ void setup() {
 }
 
 void loop() {
-  MainInterface->ChangeSegment(segment);                //Find the next Target
-  MainInterface->RefreshActualKeyMap(segment);          //Refresh the actually pressed keys map
-  if(MainInterface->CompareActualAndLastKeys(segment)){ //If it changed
-    MainInterface->SendChangesToHost(segment);          //Send the changes to host
-    MainInterface->CopyActualToLastSegment(segment);    //Copy the actual segment to the last
+  MainInterface->ChangeSegment(segment);  //Find the next Target
+  MainInterface->RefreshKeyMap();         //Refresh the actually pressed keys map
+  if(MainInterface->CompareLastKeys()){   //If it changed
+    MainInterface->SendSegment();         //Send the changes to host
+    MainInterface->SaveToPastSegment();   //Copy the actual segment to the last
   }
 
-  segment = 0x7 & (segment + 1);
+  segment++;
 }

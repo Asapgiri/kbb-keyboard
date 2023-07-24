@@ -14,9 +14,9 @@
 #define PIN_SEG6 5
 #define PIN_SEG7 13
 
-#define PIN_ARROW_UP    22
+#define PIN_ARROW_UP    23
 #define PIN_ARROW_DOWN  21
-#define PIN_ARROW_LEFT  23
+#define PIN_ARROW_LEFT  22
 #define PIN_ARROW_RIGHT 20
 
 #define PIN_LED0          30
@@ -50,23 +50,34 @@ struct char_holder {
   void (*fn_release)(void);
 };
 
+struct key_map {
+  bool actual;
+  bool last;
+  bool press;
+  bool release;
+};
+
+
 class KBB{
 private:
+  unsigned int segment;
   bool fn_pressed;
-  bool ActualKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
-  bool LastKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
-  bool PressKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
-  bool ReleaseKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
+
+  struct key_map KeyMapMain[NUMBER_OF_SEGS][KEYS_IN_SEGS];
+  struct key_map KeyMapArrows[NUMBER_OF_ARROWS];
 
   void HandleSendChange(struct char_holder* key, bool press);
+  bool CompareLastKeys(struct key_map* keymap, unsigned int len);
 
 public:
-  void ChangeSegment(unsigned char seg);
   void begin();
-  void RefreshActualKeyMap(unsigned char seg);
-  bool CompareActualAndLastKeys(unsigned char seg);
-  void CopyActualToLastSegment(unsigned char seg);
-  void SendChangesToHost(unsigned char seg);
+  void ChangeSegment(unsigned int seg);
+
+  void RefreshKeyMap();
+  bool CompareLastKeys();
+  void SendSegment();
+  void SaveToPastSegment();
+
   KBB();
   ~KBB();
 };
