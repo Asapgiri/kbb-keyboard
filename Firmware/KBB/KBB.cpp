@@ -136,9 +136,9 @@ void KBB::begin(){
   pinMode(PIN_ADDR_A1, OUTPUT);
   pinMode(PIN_ADDR_A2, OUTPUT);
 
-  pinMode(PIN_LED0, OUTPUT)
-  pinMode(PIN_LED1, OUTPUT)
-  pinMode(PIN_LED2, OUTPUT)
+  pinMode(PIN_LED0, OUTPUT);
+  pinMode(PIN_LED1, OUTPUT);
+  pinMode(PIN_LED2, OUTPUT);
 
   pinMode(PIN_SEG0, INPUT);
   pinMode(PIN_SEG1, INPUT);
@@ -214,48 +214,45 @@ bool KBB::CompareActualAndLastKeys(unsigned char seg){
   return ret;
 }
 
-void KBB::HandleSendChange(struct char_holder* key) {
+void KBB::HandleSendChange(struct char_holder* key, bool press) {
   if (NULL == key->def) {
-      return;
-    }
+    return;
+  }
 
-    if (FUNCTION_KEY == key->def) {
-      if(PressKeyMap[seg][key]) {
-        fn_pressed = true;
-      }
-      else if (ReleaseKeyMap[seg][key]) {
-        fn_pressed = false;
-      }
-      return;
-    }
+  if (FUNCTION_KEY == key->def) {
+    fn_pressed = press;
+    return;
+  }
 
-    if (fn_pressed || fn_locked) {
-      if(PressKeyMap[seg][key]){
-        if (key->fn)        Keyboard.press(key->fn);
-        if (key->fn_press)  key->fn_press();
-      }
-      else if (ReleaseKeyMap[seg][key]) {
-        if (key->fn)          Keyboard.release(key->fn);
-        if (key->fn_release)  key->fn_release();
-      }
+  if (fn_pressed || fn_locked) {
+    if(press){
+      if (key->fn)        Keyboard.press(key->fn);
+      if (key->fn_press)  key->fn_press();
     }
     else {
-      if (win_locked && KEY_LEFT_WIN == key->def) {
-        return;
-      }
-
-      if(PressKeyMap[seg][key]){
-        Keyboard.press(key->def);
-      }
-      else if (ReleaseKeyMap[seg][key]) {
-        Keyboard.release(key->def);
-      }
+      if (key->fn)          Keyboard.release(key->fn);
+      if (key->fn_release)  key->fn_release();
     }
+  }
+  else {
+    if (win_locked && KEY_LEFT_WIN == key->def) {
+      return;
+    }
+
+    if(press){
+      Keyboard.press(key->def);
+    }
+    else {
+      Keyboard.release(key->def);
+    }
+  }
 }
 
 
 void KBB::SendChangesToHost(unsigned char seg) {
   for(unsigned char key = 0; key < KEYS_IN_SEGS; key++) {
-    this->HandleSendChange(&Layout[seg][key]);
+    if (PressKeyMap[seg][key] || ReleaseKeyMap[seg][key]) {
+      this->HandleSendChange(&Layout[seg][key], PressKeyMap[seg][key]);
+    }
   }
 }

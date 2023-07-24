@@ -58,7 +58,7 @@ private:
   bool PressKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
   bool ReleaseKeyMap[NUMBER_OF_SEGS][KEYS_IN_SEGS];
 
-  void HandleSendChange(struct char_holder* key);
+  void HandleSendChange(struct char_holder* key, bool press);
 
 public:
   void ChangeSegment(unsigned char seg);
