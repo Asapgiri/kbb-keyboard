@@ -115,6 +115,11 @@ void KBB::begin(){
   pinMode(SEG5, INPUT);
   pinMode(SEG6, INPUT);
   pinMode(SEG7, INPUT);
+
+  pinMode(ARROW_UP,    INPUT_PULLUP);
+  pinMode(ARROW_DOWN,  INPUT_PULLUP);
+  pinMode(ARROW_LEFT,  INPUT_PULLUP);
+  pinMode(ARROW_RIGHT, INPUT_PULLUP);
 }
 
 void KBB::ChangeSegment(unsigned char seg){
