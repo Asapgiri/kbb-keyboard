@@ -1,7 +1,6 @@
 keyboard/keyboard-backups/*
 Desktop_Utility/Console/lib/*
 .vscode/*
-.vscode/launch.json
-.vscode/settings.json
-Desktop_Utility/Console/lib/simple_serial_port/
-.vscode/c_cpp_properties.json
+.kdev4/
+.obsidian/
+*.kdev4
