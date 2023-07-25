@@ -14,6 +14,6 @@ int KBBDesktopAppInterface::SendCommandToApp(char* data, size_t len){
   
 }
 
-char* KBBDesktopAppInterface::RecvCommandFromApp(){
+const char* KBBDesktopAppInterface::RecvCommandFromApp(){
   
 }

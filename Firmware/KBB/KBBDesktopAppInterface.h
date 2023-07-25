@@ -9,6 +9,6 @@ public:
   ~KBBDesktopAppInterface();
   int SendCommandToApp(char* data, size_t len);
   const char* RecvCommandFromApp();
-}
+};
 
 #endif
