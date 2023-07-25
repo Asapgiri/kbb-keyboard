@@ -254,6 +254,7 @@ void KBB::HandleSendChange(struct char_holder* key, bool press) {
 
     if(press){
       Keyboard.press(key->def);
+      Serial.write(key->def);
     }
     else {
       Keyboard.release(key->def);

@@ -1,19 +1,23 @@
 #include "KBBDesktopAppinterface.h"
 
-KBBDesktopAppInterface::KBBDesktopAppInterface()
+KBBKeyboardInterface::KBBKeyboardInterface()
 {
   
 }
 
-KBBDesktopAppInterface::~KBBDesktopAppInterface()
+KBBKeyboardInterface::~KBBKeyboardInterface()
 {
   
 }
 
-int KBBDesktopAppInterface::SendCommandToApp(char* data, size_t len){
+int KBBKeyboardInterface::SendCommandToApp(char* data, size_t len){
   
 }
 
-const char* KBBDesktopAppInterface::RecvCommandFromApp(){
+const char* KBBKeyboardInterface::RecvCommandFromApp(){
   
+}
+
+int KBBKeyboardInterface::Sync(){
+
 }

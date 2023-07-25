@@ -46,6 +46,7 @@ unsigned char KBBSerial::Write(char* data, size_t len){
 }
 
 const char* KBBSerial::Read(size_t len){
+   memset(ReadBuffer, 0, len);
    ReadFile(serialHandle, ReadBuffer, len , 0, NULL);
    return ReadBuffer;
 }
