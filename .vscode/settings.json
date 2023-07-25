@@ -54,5 +54,12 @@
   "C_Cpp_Runner.useUndefinedSanitizer": false,
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
-  "C_Cpp_Runner.useLinkTimeOptimization": false
+  "C_Cpp_Runner.useLinkTimeOptimization": false,
+  "files.associations": {
+    "*.embeddedhtml": "html",
+    "simpleserial.h": "c",
+    "simpleserial.cpp": "c",
+    "windows.h": "c",
+    "stdio.h": "c"
+  }
 }
