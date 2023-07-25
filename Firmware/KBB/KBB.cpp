@@ -133,11 +133,19 @@ static unsigned int pin_map_arrows[NUMBER_OF_ARROWS] = {
 /// Public fields
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-KBB::KBB() {
+void KBB::setMaps(){
   fn_pressed = false;
 
   memset(KeyMapMain,   false, sizeof(KeyMapMain));
   memset(KeyMapArrows, false, sizeof(KeyMapArrows));
+}
+
+KBB::KBB() {
+  setMaps();
+}
+
+KBB::KBB(ExtensionInterface* interface){
+  setMaps();
 }
 
 KBB::~KBB() {

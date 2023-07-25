@@ -1,3 +1,5 @@
+#include "eXtensionInterface.h"
+
 #ifndef _KBB_H_
 #define _KBB_H_
 
@@ -58,8 +60,10 @@ struct key_map {
 };
 
 
+
 class KBB{
 private:
+  void setMaps();
   unsigned int segment;
   bool fn_pressed;
 
@@ -79,6 +83,7 @@ public:
   void SaveToPastSegment();
 
   KBB();
+  KBB(ExtensionInterface* interface);
   ~KBB();
 };
 

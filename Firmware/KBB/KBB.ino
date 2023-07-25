@@ -1,7 +1,8 @@
 #include "KBB.h"
 #include <Keyboard.h>
+#include "KBBDesktopAppInterface.h"
 
-static KBB *MainInterface = nullptr;
+static KBB* MainInterface = nullptr;
 static unsigned char segment = 0;
 
 void setup() {
