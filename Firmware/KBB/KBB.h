@@ -1,7 +1,8 @@
-#include "eXtensionInterface.h"
 
 #ifndef _KBB_H_
 #define _KBB_H_
+
+#include "MacroInterface.h"
 
 #define PIN_ADDR_A0 7
 #define PIN_ADDR_A1 19
@@ -63,6 +64,7 @@ struct key_map {
 
 class KBB{
 private:
+  MacroInterface* macroInterface;
   void setMaps();
   unsigned int segment;
   bool fn_pressed;
@@ -71,6 +73,8 @@ private:
   struct key_map KeyMapArrows[NUMBER_OF_ARROWS];
 
   void HandleSendChange(struct char_holder* key, bool press);
+  inline void SendPress(char key);
+  inline void SendRelease(char key);
   bool CompareLastKeys(struct key_map* keymap, unsigned int len);
 
 public:
@@ -83,7 +87,7 @@ public:
   void SaveToPastSegment();
 
   KBB();
-  KBB(ExtensionInterface* interface);
+  KBB(MacroInterface* macroInterface);
   ~KBB();
 };
 

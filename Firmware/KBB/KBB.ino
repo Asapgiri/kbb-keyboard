@@ -1,14 +1,17 @@
 #include "KBB.h"
 #include <Keyboard.h>
-#include "KBBDesktopAppInterface.h"
+#include "KeyboardMacroInterface.h"
 
 static KBB* MainInterface = nullptr;
+static KeyboardMacroInterface* ExtensionInterface= nullptr;
 static unsigned char segment = 0;
 
 void setup() {
   Serial.begin(115200);
   Keyboard.begin();
-  MainInterface = new KBB();
+  Keyboard.releaseAll();
+  ExtensionInterface = new KeyboardMacroInterface();
+  MainInterface = new KBB(ExtensionInterface);
   MainInterface->begin();
 }
 
