@@ -1,6 +1,7 @@
 #include "KBB.h"
 #include <Arduino.h>
 #include <Keyboard.h>
+#include <EEPROM.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Private fields
@@ -20,7 +21,7 @@ static void key_fn_lock(void) {
 }
 
 
-static const struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
+static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
   {
     { def: KEY_ESC,           fn: '`',                fn_press: NULL,         fn_release: NULL },
     { def: 'w',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -158,8 +159,29 @@ KBB::~KBB()
   /*Nothing to do yet*/
 }
 
+
+char KBB::EEPROM_init()
+{
+  EEPROM.update(0, WATERMARK);
+}
+
+char KBB::SaveToEEPROM()
+{
+  EEPROM.put(1, Layout);
+  EEPROM.put(1+sizeof(Layout), Layout_Arrows);
+  //EEPROM.commit();
+}
+
+char KBB::ReadFromEEPROM(){
+  EEPROM.get(1, Layout);
+  EEPROM.get(1+sizeof(Layout), Layout_Arrows);
+}
+
+
 void KBB::begin() 
 {
+  EEPROM.begin();
+  
   unsigned int i;
   
   pinMode(PIN_ADDR_A0, OUTPUT);
@@ -176,6 +198,16 @@ void KBB::begin()
   for (i = 0; i < NUMBER_OF_ARROWS; i++) {
     pinMode(pin_map_arrows[i], INPUT_PULLUP);
   }
+
+  if (EEPROM.read(0) != WATERMARK)
+  {
+    EEPROM_init();
+    SaveToEEPROM();
+  }
+  else{
+    
+    ReadFromEEPROM();
+  } 
 }
 
 void KBB::ChangeSegment(unsigned int seg) 

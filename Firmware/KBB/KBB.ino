@@ -11,6 +11,7 @@ void setup() {
   Keyboard.begin();
   Keyboard.releaseAll();
   ExtensionInterface = new KeyboardMacroInterface();
+  ExtensionInterface->Sync();
   MainInterface = new KBB(ExtensionInterface);
   MainInterface->begin();
 }

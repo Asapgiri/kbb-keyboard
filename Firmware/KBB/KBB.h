@@ -44,7 +44,7 @@
 
 #define FUNCTION_KEY    0x1
 
-
+#define WATERMARK 0xAA
 
 struct char_holder {
   char def;
@@ -76,6 +76,9 @@ private:
   inline void SendPress(char key);
   inline void SendRelease(char key);
   bool CompareLastKeys(struct key_map* keymap, unsigned int len);
+  char SaveToEEPROM();
+  char ReadFromEEPROM();
+  char EEPROM_init();
 
 public:
   void begin();
