@@ -63,7 +63,7 @@ struct key_map {
 
 class KBB{
 private:
-  MapInterface* macroInterface;
+  MapInterface* mapInterface;
   void setMaps();
   unsigned int segment;
   bool fn_pressed;
@@ -91,7 +91,7 @@ public:
   void SyncKeyMap();
 
   KBB();
-  KBB(MapInterface* macroInterface);
+  KBB(MapInterface* mapInterface);
   ~KBB();
 };
 

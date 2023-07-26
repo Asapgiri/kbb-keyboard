@@ -144,13 +144,13 @@ void KBB::setMaps()
 
 KBB::KBB() 
 {
-  this->macroInterface = nullptr;
+  this->mapInterface = nullptr;
   setMaps();
 }
 
-KBB::KBB(MapInterface* macroInterface)
+KBB::KBB(MapInterface* mapInterface)
 {
-  this->macroInterface = macroInterface;
+  this->mapInterface = mapInterface;
   setMaps();
 }
 
@@ -347,5 +347,6 @@ inline void KBB::SendRelease(char key){
 }
 
 void KBB::SyncKeyMap(){
-
+  mapInterface->Sync(Layout,sizeof(Layout));
+  mapInterface->Sync(Layout_Arrows, sizeof(Layout_Arrows));
 }
