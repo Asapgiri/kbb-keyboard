@@ -2,7 +2,7 @@
 #ifndef _KBB_H_
 #define _KBB_H_
 
-#include "MacroInterface.h"
+#include "MapInterface.h"
 
 #define PIN_ADDR_A0 7
 #define PIN_ADDR_A1 19
@@ -44,7 +44,6 @@
 
 #define FUNCTION_KEY    0x1
 
-#define WATERMARK 0xAA
 
 struct char_holder {
   char def;
@@ -64,7 +63,7 @@ struct key_map {
 
 class KBB{
 private:
-  MacroInterface* macroInterface;
+  MapInterface* macroInterface;
   void setMaps();
   unsigned int segment;
   bool fn_pressed;
@@ -89,8 +88,10 @@ public:
   void SendSegment();
   void SaveToPastSegment();
 
+  void SyncKeyMap();
+
   KBB();
-  KBB(MacroInterface* macroInterface);
+  KBB(MapInterface* macroInterface);
   ~KBB();
 };
 

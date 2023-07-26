@@ -148,7 +148,7 @@ KBB::KBB()
   setMaps();
 }
 
-KBB::KBB(MacroInterface* macroInterface)
+KBB::KBB(MapInterface* macroInterface)
 {
   this->macroInterface = macroInterface;
   setMaps();
@@ -262,7 +262,7 @@ bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len)
     }
   }
 
-  return ret;
+ return ret;
 }
 
 bool KBB::CompareLastKeys() 
@@ -324,10 +324,28 @@ void KBB::SendSegment()
 
 inline void KBB::SendPress(char key){
   Keyboard.press(key);
-  macroInterface->Handshake(key);
+  if (Serial.available())
+  {
+    if (Serial.read() == WATERMARK)
+    {
+      SyncKeyMap();
+    }
+  }
+  
 }
 
 inline void KBB::SendRelease(char key){
   Keyboard.release(key);
+  if (Serial.available())
+  {
+    if (Serial.read() == WATERMARK)
+    {
+      SyncKeyMap();
+    }
+  }
+  
+}
+
+void KBB::SyncKeyMap(){
 
 }
