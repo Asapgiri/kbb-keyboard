@@ -2,11 +2,9 @@
 #ifndef _KBB_H_
 #define _KBB_H_
 
-<<<<<<< HEAD
-#define PIN_BOARD_EN  3
-=======
 #include "MapInterface.h"
->>>>>>> Feature-Desktop-App
+
+#define PIN_BOARD_EN  3
 
 #define PIN_ADDR_A0 7
 #define PIN_ADDR_A1 19
