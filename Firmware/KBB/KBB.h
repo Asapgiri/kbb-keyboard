@@ -85,4 +85,4 @@ public:
 };
 
 
-#endif _KBB_H_
+#endif // _KBB_H_

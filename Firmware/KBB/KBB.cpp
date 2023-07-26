@@ -20,7 +20,7 @@ static void key_fn_lock(void) {
 }
 
 
-static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
+static const struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
   {
     { def: KEY_ESC,           fn: '`',                fn_press: NULL,         fn_release: NULL },
     { def: 'w',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -39,7 +39,7 @@ static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
     { def: '8',               fn: KEY_F8,             fn_press: NULL,         fn_release: NULL },
     { def: '0',               fn: KEY_F10,            fn_press: NULL,         fn_release: NULL },
     { def: '=',               fn: KEY_F12,            fn_press: NULL,         fn_release: NULL },
-    { def: KEY_INSERT,        fn: KEY_PRINT_SCREEN,   fn_press: NULL,         fn_release: NULL }
+    { def: KEY_INSERT,        fn: NULL /* KEY_PRINT_SCREEN */,   fn_press: NULL,         fn_release: NULL }
   },
   {
     { def: 'q',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
