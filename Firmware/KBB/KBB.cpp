@@ -147,6 +147,10 @@ KBB::~KBB() {
 void KBB::begin() {
   unsigned int i;
   
+  // Make sure the BOARD_ENABLE pin is enabled
+  pinMode(PIN_BOARD_EN, OUTPUT);
+  digitalWrite(PIN_BOARD_EN, LOW);
+
   pinMode(PIN_ADDR_A0, OUTPUT);
   pinMode(PIN_ADDR_A1, OUTPUT);
   pinMode(PIN_ADDR_A2, OUTPUT);
