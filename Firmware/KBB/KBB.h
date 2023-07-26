@@ -1,7 +1,12 @@
+
 #ifndef _KBB_H_
 #define _KBB_H_
 
+<<<<<<< HEAD
 #define PIN_BOARD_EN  3
+=======
+#include "MapInterface.h"
+>>>>>>> Feature-Desktop-App
 
 #define PIN_ADDR_A0 7
 #define PIN_ADDR_A1 19
@@ -44,7 +49,6 @@
 #define FUNCTION_KEY    0x1
 
 
-
 struct char_holder {
   char def;
   char fn;
@@ -60,8 +64,11 @@ struct key_map {
 };
 
 
+
 class KBB{
 private:
+  MapInterface* mapInterface;
+  void setMaps();
   unsigned int segment;
   bool fn_pressed;
 
@@ -69,7 +76,12 @@ private:
   struct key_map KeyMapArrows[NUMBER_OF_ARROWS];
 
   void HandleSendChange(struct char_holder* key, bool press);
+  inline void SendPress(char key);
+  inline void SendRelease(char key);
   bool CompareLastKeys(struct key_map* keymap, unsigned int len);
+  char SaveToEEPROM();
+  char ReadFromEEPROM();
+  char EEPROM_init();
 
 public:
   void begin();
@@ -80,7 +92,10 @@ public:
   void SendSegment();
   void SaveToPastSegment();
 
+  void SyncKeyMap();
+
   KBB();
+  KBB(MapInterface* mapInterface);
   ~KBB();
 };
 

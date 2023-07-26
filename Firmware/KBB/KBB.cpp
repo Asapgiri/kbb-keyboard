@@ -1,6 +1,7 @@
 #include "KBB.h"
 #include <Arduino.h>
 #include <Keyboard.h>
+#include <EEPROM.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Private fields
@@ -20,7 +21,7 @@ static void key_fn_lock(void) {
 }
 
 
-static const struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
+static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
   {
     { def: KEY_ESC,           fn: '`',                fn_press: NULL,         fn_release: NULL },
     { def: 'w',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -133,18 +134,54 @@ static unsigned int pin_map_arrows[NUMBER_OF_ARROWS] = {
 /// Public fields
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-KBB::KBB() {
+void KBB::setMaps()
+{
   fn_pressed = false;
 
   memset(KeyMapMain,   false, sizeof(KeyMapMain));
   memset(KeyMapArrows, false, sizeof(KeyMapArrows));
 }
 
-KBB::~KBB() {
+KBB::KBB() 
+{
+  this->mapInterface = nullptr;
+  setMaps();
+}
+
+KBB::KBB(MapInterface* mapInterface)
+{
+  this->mapInterface = mapInterface;
+  setMaps();
+}
+
+KBB::~KBB() 
+{
   /*Nothing to do yet*/
 }
 
-void KBB::begin() {
+
+char KBB::EEPROM_init()
+{
+  EEPROM.update(0, WATERMARK);
+}
+
+char KBB::SaveToEEPROM()
+{
+  EEPROM.put(1, Layout);
+  EEPROM.put(1+sizeof(Layout), Layout_Arrows);
+  //EEPROM.commit();
+}
+
+char KBB::ReadFromEEPROM(){
+  EEPROM.get(1, Layout);
+  EEPROM.get(1+sizeof(Layout), Layout_Arrows);
+}
+
+
+void KBB::begin() 
+{
+  EEPROM.begin();
+  
   unsigned int i;
   
   // Make sure the BOARD_ENABLE pin is enabled
@@ -165,9 +202,20 @@ void KBB::begin() {
   for (i = 0; i < NUMBER_OF_ARROWS; i++) {
     pinMode(pin_map_arrows[i], INPUT_PULLUP);
   }
+
+  if (EEPROM.read(0) != WATERMARK)
+  {
+    EEPROM_init();
+    SaveToEEPROM();
+  }
+  else{
+    
+    ReadFromEEPROM();
+  } 
 }
 
-void KBB::ChangeSegment(unsigned int seg) {
+void KBB::ChangeSegment(unsigned int seg) 
+{
   segment = seg & 0x7;
   digitalWrite(PIN_ADDR_A0, seg & 0x1);
   digitalWrite(PIN_ADDR_A1, seg & 0x2);
@@ -175,7 +223,8 @@ void KBB::ChangeSegment(unsigned int seg) {
   delayMicroseconds(50);
 }
 
-void KBB::RefreshKeyMap()  {
+void KBB::RefreshKeyMap()  
+{
   unsigned int i;
   /*The function refresh a segment from the keymap*/
   for (i = 0; i < NUMBER_OF_SEGS; i++) {
@@ -186,7 +235,8 @@ void KBB::RefreshKeyMap()  {
   }
 }
 
-void KBB::SaveToPastSegment() {
+void KBB::SaveToPastSegment() 
+{
   unsigned int i;
   for (i = 0; i < KEYS_IN_SEGS; i++) {
     KeyMapMain[segment][i].last = KeyMapMain[segment][i].actual;
@@ -196,7 +246,8 @@ void KBB::SaveToPastSegment() {
   }
 }
 
-bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len) {
+bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len) 
+{
   unsigned int index = 0;
   bool ret = false;
 
@@ -215,15 +266,17 @@ bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len) {
     }
   }
 
-  return ret;
+ return ret;
 }
 
-bool KBB::CompareLastKeys() {
+bool KBB::CompareLastKeys() 
+{
   return CompareLastKeys(KeyMapMain[segment], NUMBER_OF_SEGS)   ||
          CompareLastKeys(KeyMapArrows,        NUMBER_OF_ARROWS);
 }
 
-void KBB::HandleSendChange(struct char_holder* key, bool press) {
+void KBB::HandleSendChange(struct char_holder* key, bool press) 
+{
   if (NULL == key->def) {
     return;
   }
@@ -235,11 +288,11 @@ void KBB::HandleSendChange(struct char_holder* key, bool press) {
 
   if (fn_pressed || fn_locked) {
     if(press){
-      if (key->fn)        Keyboard.press(key->fn);
+      if (key->fn)        SendPress(key->fn);
       if (key->fn_press)  key->fn_press();
     }
     else {
-      if (key->fn)          Keyboard.release(key->fn);
+      if (key->fn)          SendRelease(key->fn);
       if (key->fn_release)  key->fn_release();
     }
   }
@@ -249,16 +302,17 @@ void KBB::HandleSendChange(struct char_holder* key, bool press) {
     }
 
     if(press){
-      Keyboard.press(key->def);
+      SendPress(key->def);
     }
     else {
-      Keyboard.release(key->def);
+      SendRelease(key->def);
     }
   }
 }
 
 
-void KBB::SendSegment() {
+void KBB::SendSegment() 
+{
   int key;
   for(key = 0; key < KEYS_IN_SEGS; key++) {
     if (KeyMapMain[segment][key].press || KeyMapMain[segment][key].release) {
@@ -270,4 +324,33 @@ void KBB::SendSegment() {
       this->HandleSendChange(&Layout_Arrows[key], KeyMapArrows[key].press);
     }
   }
+}
+
+inline void KBB::SendPress(char key){
+  Keyboard.press(key);
+  if (Serial.available())
+  {
+    if (Serial.read() == WATERMARK)
+    {
+      SyncKeyMap();
+    }
+  }
+  
+}
+
+inline void KBB::SendRelease(char key){
+  Keyboard.release(key);
+  if (Serial.available())
+  {
+    if (Serial.read() == WATERMARK)
+    {
+      SyncKeyMap();
+    }
+  }
+  
+}
+
+void KBB::SyncKeyMap(){
+  mapInterface->Sync(Layout,sizeof(Layout));
+  mapInterface->Sync(Layout_Arrows, sizeof(Layout_Arrows));
 }

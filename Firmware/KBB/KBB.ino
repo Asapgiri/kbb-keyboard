@@ -1,13 +1,17 @@
 #include "KBB.h"
 #include <Keyboard.h>
+#include "KeyboardMapInterface.h"
 
-static KBB *MainInterface = nullptr;
+static KBB* MainInterface = nullptr;
+static KeyboardMapInterface* ExtensionInterface= nullptr;
 static unsigned char segment = 0;
 
 void setup() {
   Serial.begin(115200);
   Keyboard.begin();
-  MainInterface = new KBB();
+  Keyboard.releaseAll();
+  ExtensionInterface = new KeyboardMapInterface();
+  MainInterface = new KBB(ExtensionInterface);
   MainInterface->begin();
 }
 
@@ -20,4 +24,5 @@ void loop() {
   }
 
   segment++;
+  MainInterface->SyncKeyMap();
 }
