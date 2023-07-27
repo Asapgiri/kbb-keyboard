@@ -1,8 +1,8 @@
-keyboard/keyboard-backups/*
+pcb/keyboard-backups/*
 Desktop_Utility/Console/lib/*
 .vscode/*
 .kdev4/
 .obsidian/
 *.kdev4
-DesktopApp/Console/lib/simple_serial_port/
-DesktopApp/Console/KBBUtility.exe
+DesktopApp/Console/lib/*
+*.exe
