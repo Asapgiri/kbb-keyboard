@@ -5,12 +5,11 @@
 #include "MapInterface.h"
 
 class KeyboardMapInterface : public virtual MapInterface {
-private:
-   struct Macro MacroTable[100];
 public:
    KeyboardMapInterface();
    ~KeyboardMapInterface();
-   char Sync(void* map, int size);
+   char SyncKeyMap(void* Old_KeyMap, void* new_KeyMap, int size);
+   char SyncArrowMap(void* Old_KeyMap, void* new_KeyMap, int size);
 };
 
 #endif

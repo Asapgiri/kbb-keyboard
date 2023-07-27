@@ -88,7 +88,7 @@ public:
   void SendSegment();
   void SaveToPastSegment();
 
-  void SyncKeyMap();
+  void SyncMaps();
 
   KBB();
   KBB(MapInterface* mapInterface);

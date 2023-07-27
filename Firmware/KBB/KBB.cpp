@@ -170,11 +170,13 @@ char KBB::SaveToEEPROM()
   EEPROM.put(1, Layout);
   EEPROM.put(1+sizeof(Layout), Layout_Arrows);
   //EEPROM.commit();
+  return 0;
 }
 
 char KBB::ReadFromEEPROM(){
   EEPROM.get(1, Layout);
   EEPROM.get(1+sizeof(Layout), Layout_Arrows);
+  return 0;
 }
 
 
@@ -205,7 +207,6 @@ void KBB::begin()
     SaveToEEPROM();
   }
   else{
-    
     ReadFromEEPROM();
   } 
 }
@@ -324,29 +325,25 @@ void KBB::SendSegment()
 
 inline void KBB::SendPress(char key){
   Keyboard.press(key);
-  if (Serial.available())
-  {
-    if (Serial.read() == WATERMARK)
-    {
-      SyncKeyMap();
-    }
-  }
+  SyncMaps();
   
 }
 
 inline void KBB::SendRelease(char key){
   Keyboard.release(key);
+  SyncMaps();
+}
+
+void KBB::SyncMaps(){
   if (Serial.available())
   {
     if (Serial.read() == WATERMARK)
     {
-      SyncKeyMap();
+        mapInterface->SyncKeyMap(Layout, Layout, sizeof(Layout));
+        mapInterface->SyncArrowMap(Layout_Arrows, Layout_Arrows, sizeof(Layout_Arrows));
+
+        SaveToEEPROM();
     }
   }
-  
-}
 
-void KBB::SyncKeyMap(){
-  mapInterface->Sync(Layout,sizeof(Layout));
-  mapInterface->Sync(Layout_Arrows, sizeof(Layout_Arrows));
 }

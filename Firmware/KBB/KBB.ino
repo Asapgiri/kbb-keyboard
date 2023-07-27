@@ -24,5 +24,5 @@ void loop() {
   }
 
   segment++;
-  MainInterface->SyncKeyMap();
+  MainInterface->SyncMaps();
 }

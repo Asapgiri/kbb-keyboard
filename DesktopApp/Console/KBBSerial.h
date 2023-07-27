@@ -1,3 +1,9 @@
+#ifndef _KBB_SERIAL_H
+#define _KBB_SERIAL_H
+
+#include <stdio.h>
+#include <stdint.h>
+#include <unistd.h>
 #include <windows.h>
 
 class KBBSerial{
@@ -12,3 +18,5 @@ private:
    char* ReadBuffer;
    char* WriteBuffer;
 };
+
+#endif
