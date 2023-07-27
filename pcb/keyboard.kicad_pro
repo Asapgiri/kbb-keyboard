@@ -476,7 +476,7 @@
     },
     "net_format_name": "",
     "page_layout_descr_file": "",
-    "plot_directory": "",
+    "plot_directory": "../",
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
     "spice_model_current_sheet_as_root": true,
@@ -492,7 +492,11 @@
     ],
     [
       "fbe83ea9-7710-46b0-9910-9a61d0c7984b",
-      "Bettery management and USB hub"
+      "USB hub"
+    ],
+    [
+      "696a2b91-f6e2-4e41-a966-3fe98af16e74",
+      "Battery management"
     ]
   ],
   "text_variables": {}
