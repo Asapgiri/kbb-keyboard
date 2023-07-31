@@ -2267,9 +2267,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R24") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R60") (unit 1)
-        )
       )
     )
   )
@@ -2298,9 +2295,6 @@
         )
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R36") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R61") (unit 1)
         )
       )
     )
@@ -2333,8 +2327,8 @@
     (pin "2" (uuid 3bce2e33-9adc-4c73-b35b-4748c5add806))
     (pin "20" (uuid ba54e23b-657d-4451-958f-035f8ebae645))
     (pin "21" (uuid 892977fa-59a4-4390-8895-a65b811274c0))
-    (pin "22" (uuid 06dfac2a-82d2-4f65-905d-1fa271bdd262))
-    (pin "22" (uuid 06dfac2a-82d2-4f65-905d-1fa271bdd262))
+    (pin "22" (uuid 06dfac2a-82d2-4f65-905d-1fa271bdd264))
+    (pin "22" (uuid 06dfac2a-82d2-4f65-905d-1fa271bdd264))
     (pin "23" (uuid d08b0335-2c9a-4cdb-af71-c0eb989f1c1f))
     (pin "24" (uuid 90a2e65d-0eb0-43f2-a7c2-334f2fbfb62a))
     (pin "25" (uuid cd2e08b7-9d22-4fef-9082-495bc04bc219))
@@ -2374,9 +2368,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "U2") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "U8") (unit 1)
-        )
       )
     )
   )
@@ -2402,9 +2393,6 @@
       (project "keyboard"
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R28") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R45") (unit 1)
         )
       )
     )
@@ -2435,9 +2423,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "U5") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "U10") (unit 1)
-        )
       )
     )
   )
@@ -2466,9 +2451,6 @@
         )
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R35") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R60") (unit 1)
         )
       )
     )
@@ -2499,9 +2481,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R34") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R52") (unit 1)
-        )
       )
     )
   )
@@ -2531,9 +2510,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R40") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R58") (unit 1)
-        )
       )
     )
   )
@@ -2559,9 +2535,6 @@
       (project "keyboard"
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "L1") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "L2") (unit 1)
         )
       )
     )
@@ -2591,9 +2564,6 @@
         )
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "C29") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "C37") (unit 1)
         )
       )
     )
@@ -2639,9 +2609,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "J5") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "J8") (unit 1)
-        )
       )
     )
   )
@@ -2667,9 +2634,6 @@
       (project "keyboard"
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R29") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R46") (unit 1)
         )
       )
     )
@@ -2700,9 +2664,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R43") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R54") (unit 1)
-        )
       )
     )
   )
@@ -2731,9 +2692,6 @@
         )
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R42") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R59") (unit 1)
         )
       )
     )
@@ -2764,9 +2722,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R32") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R53") (unit 1)
-        )
       )
     )
   )
@@ -2796,9 +2751,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R39") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R57") (unit 1)
-        )
       )
     )
   )
@@ -2824,9 +2776,6 @@
       (project "keyboard"
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R31") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R48") (unit 1)
         )
       )
     )
@@ -2857,9 +2806,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "U6") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "U11") (unit 1)
-        )
       )
     )
   )
@@ -2885,9 +2831,6 @@
       (project "keyboard"
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R26") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R43") (unit 1)
         )
       )
     )
@@ -2920,9 +2863,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "Y2") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "Y3") (unit 1)
-        )
       )
     )
   )
@@ -2951,9 +2891,6 @@
         )
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R33") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R51") (unit 1)
         )
       )
     )
@@ -2984,9 +2921,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R38") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R55") (unit 1)
-        )
       )
     )
   )
@@ -3016,9 +2950,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "C28") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "C36") (unit 1)
-        )
       )
     )
   )
@@ -3044,9 +2975,6 @@
       (project "keyboard"
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R25") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R49") (unit 1)
         )
       )
     )
@@ -3077,9 +3005,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "C33") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "C40") (unit 1)
-        )
       )
     )
   )
@@ -3109,9 +3034,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "C31") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "C38") (unit 1)
-        )
       )
     )
   )
@@ -3140,9 +3062,6 @@
       (project "keyboard"
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "J6") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "J9") (unit 1)
         )
       )
     )
@@ -3185,9 +3104,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "U3") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "U7") (unit 1)
-        )
       )
     )
   )
@@ -3216,9 +3132,6 @@
         )
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "C34") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "C39") (unit 1)
         )
       )
     )
@@ -3249,9 +3162,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "C30") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "C41") (unit 1)
-        )
       )
     )
   )
@@ -3280,9 +3190,6 @@
         )
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R37") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R54") (unit 1)
         )
       )
     )
@@ -3313,9 +3220,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "C32") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "C35") (unit 1)
-        )
       )
     )
   )
@@ -3345,9 +3249,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R44") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R55") (unit 1)
-        )
       )
     )
   )
@@ -3374,9 +3275,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R30") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R47") (unit 1)
-        )
       )
     )
   )
@@ -3402,9 +3300,6 @@
       (project "keyboard"
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R27") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R44") (unit 1)
         )
       )
     )
@@ -3435,9 +3330,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "U4") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "U9") (unit 1)
-        )
       )
     )
   )
@@ -3467,9 +3359,6 @@
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "R41") (unit 1)
         )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "R56") (unit 1)
-        )
       )
     )
   )
@@ -3498,9 +3387,6 @@
       (project "keyboard"
         (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/fbe83ea9-7710-46b0-9910-9a61d0c7984b"
           (reference "J7") (unit 1)
-        )
-        (path "/ba343d94-601d-44c5-b848-a7d9121c7be9/696a2b91-f6e2-4e41-a966-3fe98af16e74"
-          (reference "J10") (unit 1)
         )
       )
     )

@@ -1,4 +1,4 @@
-pcb/keyboard-backups/*
+pcb*/keyboard-backups/*
 Desktop_Utility/Console/lib/*
 .vscode/*
 .kdev4/
