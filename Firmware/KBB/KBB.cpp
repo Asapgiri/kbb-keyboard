@@ -17,7 +17,7 @@ static void key_win_lock(void) {
 
 static void key_fn_lock(void) {
   fn_locked = !fn_locked;
-  digitalWrite(PIN_LED_FNLOCK, fn_locked);
+  //digitalWrite(PIN_LED_FNLOCK, fn_locked);
 }
 
 
@@ -168,13 +168,13 @@ char KBB::EEPROM_init()
 char KBB::SaveToEEPROM()
 {
   EEPROM.put(1, Layout);
-  EEPROM.put(1+sizeof(Layout), Layout_Arrows);
+  EEPROM.put(1 + sizeof(Layout), Layout_Arrows);
   //EEPROM.commit();
 }
 
 char KBB::ReadFromEEPROM(){
   EEPROM.get(1, Layout);
-  EEPROM.get(1+sizeof(Layout), Layout_Arrows);
+  EEPROM.get(1 + sizeof(Layout), Layout_Arrows);
 }
 
 
@@ -203,15 +203,15 @@ void KBB::begin()
     pinMode(pin_map_arrows[i], INPUT_PULLUP);
   }
 
-  if (EEPROM.read(0) != WATERMARK)
-  {
-    EEPROM_init();
-    SaveToEEPROM();
-  }
-  else{
-    
-    ReadFromEEPROM();
-  } 
+  //if (EEPROM.read(0) != WATERMARK)
+  //{
+  //  EEPROM_init();
+  //  SaveToEEPROM();
+  //}
+  //else{
+  //  
+  //  ReadFromEEPROM();
+  //} 
 }
 
 void KBB::ChangeSegment(unsigned int seg) 
@@ -290,10 +290,7 @@ void KBB::HandleSendChange(struct char_holder* key, bool press)
     return;
   }
 
-  //Serial.print((unsigned char)key->fn);
-  //Serial.print('/');
-  if (fn_pressed || fn_locked) {
-    //Serial.println('1');
+  if (fn_pressed || (fn_locked && key->fn && (KEY_ESC != key->def))) {
     if(press){
       if (key->fn)        SendPress(key->fn);
       if (key->fn_press)  key->fn_press();
@@ -304,7 +301,6 @@ void KBB::HandleSendChange(struct char_holder* key, bool press)
     }
   }
   else {
-    //Serial.println('2');
     if (win_locked && KEY_LEFT_GUI == key->def) {
       return;
     }

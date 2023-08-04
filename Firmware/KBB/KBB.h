@@ -48,8 +48,8 @@
 
 
 struct char_holder {
-  char def;
-  char fn;
+  unsigned char def;
+  unsigned char fn;
   void (*fn_press)(void);
   void (*fn_release)(void);
 };

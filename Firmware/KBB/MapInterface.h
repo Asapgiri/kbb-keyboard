@@ -6,7 +6,7 @@
 #ifndef _MAP_INTERFACE_
 #define _MAP_INTERFACE_
 
-#define WATERMARK 0x11
+#define WATERMARK 0x15
 
 struct Macro{
    char id;
