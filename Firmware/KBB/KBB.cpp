@@ -88,7 +88,7 @@ static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
     { def: ' ',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'n',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: ',',               fn: KEY_VOLUME_DOWN,    fn_press: NULL,         fn_release: NULL },
-    { def: KEY_RIGHT_ALT,     fn: NULL,               fn_press: NULL,         fn_release: NULL },
+    { def: KEY_RIGHT_ALT,     fn: KEY_MENU,           fn_press: NULL,         fn_release: NULL },
     { def: FUNCTION_KEY,      fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: KEY_END,           fn: KEY_LEFT_SLEEP,     fn_press: NULL,         fn_release: NULL }
   },

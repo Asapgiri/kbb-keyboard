@@ -36,13 +36,12 @@
 #define NUMBER_OF_SEGS    8
 #define KEYS_IN_SEGS      8
 
-#define KEY_LEFT_WIN    0x5B
-#define KEY_LEFT_SLEEP  0x5F
-#define KEY_VOLUME_UP   0xAF
-#define KEY_VOLUME_DOWN 0xAE
-#define KEY_MUSIC_PLAY  0xB3
-#define KEY_MUSIC_NEXT  0xB0
-#define KEY_MUSIC_PREV  0xB1
+#define KEY_LEFT_SLEEP  NULL  // 0x5F
+#define KEY_VOLUME_UP   NULL  // 0xAF
+#define KEY_VOLUME_DOWN NULL  // 0xAE
+#define KEY_MUSIC_PLAY  NULL  // 0xB3
+#define KEY_MUSIC_NEXT  NULL  // 0xB0
+#define KEY_MUSIC_PREV  NULL  // 0xB1
 
 #define FUNCTION_KEY    0x1
 
