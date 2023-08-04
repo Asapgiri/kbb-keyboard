@@ -22,7 +22,7 @@ static void key_fn_lock(void) {
 
 
 static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
-  {
+  { // SEGMENT 0
     { def: KEY_ESC,           fn: '`',                fn_press: NULL,         fn_release: NULL },
     { def: 'w',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: '4',               fn: KEY_F4,             fn_press: NULL,         fn_release: NULL },
@@ -32,7 +32,7 @@ static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
     { def: '-',               fn: KEY_F11,            fn_press: NULL,         fn_release: NULL },
     { def: KEY_BACKSPACE,     fn: NULL,               fn_press: NULL,         fn_release: NULL }
   },
-  {
+  { // SEGMENT 1
     { def: '1',               fn: KEY_F1,             fn_press: NULL,         fn_release: NULL },
     { def: '3',               fn: KEY_F3,             fn_press: NULL,         fn_release: NULL },
     { def: 'r',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -40,9 +40,9 @@ static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
     { def: '8',               fn: KEY_F8,             fn_press: NULL,         fn_release: NULL },
     { def: '0',               fn: KEY_F10,            fn_press: NULL,         fn_release: NULL },
     { def: '=',               fn: KEY_F12,            fn_press: NULL,         fn_release: NULL },
-    { def: KEY_INSERT,        fn: NULL /* KEY_PRINT_SCREEN */,   fn_press: NULL,         fn_release: NULL }
+    { def: KEY_INSERT,        fn: KEY_PRINT_SCREEN,   fn_press: NULL,         fn_release: NULL }
   },
-  {
+  { // SEGMENT 2
     { def: 'q',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 's',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'f',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -50,9 +50,9 @@ static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
     { def: 'i',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'p',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: ']',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
-    { def: KEY_END,           fn: NULL,               fn_press: NULL,         fn_release: NULL }
+    { def: KEY_DELETE,        fn: NULL,               fn_press: NULL,         fn_release: NULL }
   },
-  {
+  { // SEGMENT 3
     { def: KEY_TAB,           fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: '2',               fn: KEY_F2,             fn_press: NULL,         fn_release: NULL },
     { def: 'e',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -62,17 +62,17 @@ static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
     { def: '[',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: '\\',              fn: NULL,               fn_press: NULL,         fn_release: NULL }
   },
-  {
-    { def: KEY_LEFT_WIN,      fn: NULL,               fn_press: key_win_lock, fn_release: NULL }, // Left WIN
+  { // SEGMENT 4
+    { def: KEY_LEFT_GUI,      fn: NULL,               fn_press: key_win_lock, fn_release: NULL }, // Left WIN
     { def: 'x',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'v',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'h',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'k',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: ';',               fn: KEY_MUSIC_PREV,     fn_press: NULL,         fn_release: NULL },
     { def: KEY_RIGHT_SHIFT,   fn: NULL,               fn_press: NULL,         fn_release: NULL },
-    { def: KEY_DELETE,        fn: NULL,               fn_press: NULL,         fn_release: NULL }
+    { def: KEY_HOME,          fn: NULL,               fn_press: NULL,         fn_release: NULL }
   },
-  {
+  { // SEGMENT 5
     { def: KEY_CAPS_LOCK,     fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'a',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'd',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -82,7 +82,7 @@ static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
     { def: '\'',              fn: KEY_MUSIC_NEXT,     fn_press: NULL,         fn_release: NULL },
     { def: KEY_RETURN,        fn: NULL,               fn_press: NULL,         fn_release: NULL }
   },
-  {
+  { // SEGMENT 6
     { def: KEY_LEFT_CTRL,     fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: KEY_LEFT_ALT,      fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: ' ',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -90,9 +90,9 @@ static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
     { def: ',',               fn: KEY_VOLUME_DOWN,    fn_press: NULL,         fn_release: NULL },
     { def: KEY_RIGHT_ALT,     fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: FUNCTION_KEY,      fn: NULL,               fn_press: NULL,         fn_release: NULL },
-    { def: KEY_HOME,          fn: KEY_LEFT_SLEEP,     fn_press: NULL,         fn_release: NULL }
+    { def: KEY_END,           fn: KEY_LEFT_SLEEP,     fn_press: NULL,         fn_release: NULL }
   },
-  {
+  { // SEGMENT 7
     { def: KEY_LEFT_SHIFT,    fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'z',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'c',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -256,11 +256,15 @@ bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len)
     keymap[index].release = false;
 
     if(keymap[index].last != keymap[index].actual) {
+      //Serial.print(segment);
+      //Serial.print(index);
       if(keymap[index].actual) {
         keymap[index].press = true;
+        //Serial.println(" press");
       }
       else{
         keymap[index].release = true;
+        //Serial.println(" release");
       }
       ret = true;
     }
@@ -286,7 +290,10 @@ void KBB::HandleSendChange(struct char_holder* key, bool press)
     return;
   }
 
+  //Serial.print((unsigned char)key->fn);
+  //Serial.print('/');
   if (fn_pressed || fn_locked) {
+    //Serial.println('1');
     if(press){
       if (key->fn)        SendPress(key->fn);
       if (key->fn_press)  key->fn_press();
@@ -297,7 +304,8 @@ void KBB::HandleSendChange(struct char_holder* key, bool press)
     }
   }
   else {
-    if (win_locked && KEY_LEFT_WIN == key->def) {
+    //Serial.println('2');
+    if (win_locked && KEY_LEFT_GUI == key->def) {
       return;
     }
 
@@ -328,26 +336,24 @@ void KBB::SendSegment()
 
 inline void KBB::SendPress(char key){
   Keyboard.press(key);
-  if (Serial.available())
-  {
-    if (Serial.read() == WATERMARK)
-    {
-      SyncKeyMap();
-    }
-  }
-  
+  //if (Serial.available())
+  //{
+  //  if (Serial.read() == WATERMARK)
+  //  {
+  //    SyncKeyMap();
+  //  }
+  //}
 }
 
 inline void KBB::SendRelease(char key){
   Keyboard.release(key);
-  if (Serial.available())
-  {
-    if (Serial.read() == WATERMARK)
-    {
-      SyncKeyMap();
-    }
-  }
-  
+  //if (Serial.available())
+  //{
+  //  if (Serial.read() == WATERMARK)
+  //  {
+  //    SyncKeyMap();
+  //  }
+  //}
 }
 
 void KBB::SyncKeyMap(){
