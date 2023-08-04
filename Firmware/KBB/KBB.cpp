@@ -17,7 +17,7 @@ static void key_win_lock(void) {
 
 static void key_fn_lock(void) {
   fn_locked = !fn_locked;
-  //digitalWrite(PIN_LED_FNLOCK, fn_locked);
+  digitalWrite(PIN_LED_FNLOCK, fn_locked);
 }
 
 
