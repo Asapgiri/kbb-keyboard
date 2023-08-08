@@ -290,7 +290,7 @@ void KBB::HandleSendChange(struct char_holder* key, bool press)
     return;
   }
 
-  if (fn_pressed || (fn_locked && key->fn && (KEY_ESC != key->def))) {
+  if ((fn_pressed && (key->fn || (press && key->fn_press) || (!press && key->fn_release))) || (fn_locked && key->fn && (KEY_ESC != key->def))) {
     if(press){
       if (key->fn)        SendPress(key->fn);
       if (key->fn_press)  key->fn_press();
