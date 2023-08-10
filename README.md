@@ -15,3 +15,7 @@ Keep in mind, that first the Atmega32u4 will need a bootloader, witch is program
 Place the dependencies into the lib folder.
 Desktop Utility:
 --> simple_serial_port https://github.com/dmicha16/simple_serial_port/tree/master
+
+## Layout
+![image](https://github.com/Asapgiri/kbb-keyboard/assets/102363485/fa3d3703-e9a0-4804-9f38-b8b7b074fe35)
+
