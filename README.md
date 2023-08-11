@@ -45,6 +45,7 @@ You can currently only see the details in Schematic and the Code files.
 ## Under develpement
 These keys are yet not supported due to the incompatibility of `Keyboard.h`.
 | Combination | Meaning     |
+| ---         | ---         |
 | FN + ;      | PREV MUSIC  |
 | FN + \      | NEXT  MUSIC |
 | FN + ,      | VOLUME DOWN |
