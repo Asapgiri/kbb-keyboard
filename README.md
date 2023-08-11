@@ -17,7 +17,7 @@ Desktop Utility:
 --> simple_serial_port https://github.com/dmicha16/simple_serial_port/tree/master
 
 ## Layout
-![keyboard-layout](https://github.com/Asapgiri/kbb-keyboard/assets/102363485/70785946-c484-44d7-84e8-5d949352c15f)
+![keyboard-layout](https://github.com/Asapgiri/kbb-keyboard/assets/102363485/43cdac1c-56b7-4ceb-8347-bd1a52966e2c)
 
 # Function keys
 ## Supported
