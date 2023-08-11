@@ -18,6 +18,8 @@ Desktop Utility:
 
 ## Layout
 ![image](https://github.com/Asapgiri/kbb-keyboard/assets/102363485/fa3d3703-e9a0-4804-9f38-b8b7b074fe35)
+In this image the different colors mean the segmentation of the keys with muxes.
+You can currently only see the details in Schematic and the Code files.
 
 # Function keys
 ## Supported
