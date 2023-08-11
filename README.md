@@ -19,3 +19,28 @@ Desktop Utility:
 ## Layout
 ![image](https://github.com/Asapgiri/kbb-keyboard/assets/102363485/fa3d3703-e9a0-4804-9f38-b8b7b074fe35)
 
+# Function keys
+| Combination | Meaning |
+| --- | --- |
+| FN + 1 | FN1 |
+| FN + 2 | FN2 |
+| FN + 3 | FN3 |
+| FN + 4 | FN4 |
+| FN + 5 | FN5 |
+| FN + 6 | FN6 |
+| FN + 7 | FN7 |
+| FN + 8 | FN8 |
+| FN + 9 | FN9 |
+| FN + 0 | FN10 |
+| FN + - | FN11 |
+| FN + = | FN12 |
+| FN + INS  | PRT SCR |
+| FN + WIN | WIN LOCK |
+| FN + -> | FN LOCK |
+| FN + ; | PREV MUSIC |
+| FN + \ | NEXT  MUSIC |
+| FN + , | VOLUME DOWN |
+| FN + . | VOLUME UP |
+| FN + / | PLAY |
+| FN + ALT | MENU |
+| FN + END | SLEEP |
