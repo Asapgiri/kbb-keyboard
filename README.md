@@ -21,8 +21,8 @@ Desktop Utility:
 In this image the different colors mean the segmentation of the keys with muxes.
 You can currently only see the details in Schematic and the Code files.
 
-# Function keys
-## Supported
+## Function keys
+### Supported
 | Combination | Meaning  |
 | ---         | ---      |
 | FN + 1      | F1       |
@@ -42,7 +42,7 @@ You can currently only see the details in Schematic and the Code files.
 | FN + ->     | FN LOCK  |
 | FN + ALT    | MENU     |
 
-## Under develpement
+### Under develpement
 These keys are yet not supported due to the incompatibility of `Keyboard.h`.
 | Combination | Meaning     |
 | ---         | ---         |
