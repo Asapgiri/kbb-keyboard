@@ -17,7 +17,7 @@ Desktop Utility:
 --> simple_serial_port https://github.com/dmicha16/simple_serial_port/tree/master
 
 ## Layout
-![image](https://github.com/Asapgiri/kbb-keyboard/assets/102363485/fa3d3703-e9a0-4804-9f38-b8b7b074fe35)
+![keyboard-layout](https://github.com/Asapgiri/kbb-keyboard/assets/102363485/43cdac1c-56b7-4ceb-8347-bd1a52966e2c)
 In this image the different colors mean the segmentation of the keys with muxes.
 You can currently only see the details in Schematic and the Code files.
 
