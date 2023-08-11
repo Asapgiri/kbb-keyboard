@@ -19,8 +19,8 @@ Desktop Utility:
 ## Layout
 ![keyboard-layout](https://github.com/Asapgiri/kbb-keyboard/assets/102363485/43cdac1c-56b7-4ceb-8347-bd1a52966e2c)
 
-# Function keys
-## Supported
+## Function keys
+### Supported
 | Combination | Meaning  |
 | ---         | ---      |
 | FN + 1      | F1       |
@@ -40,7 +40,7 @@ Desktop Utility:
 | FN + ->     | FN LOCK  |
 | FN + ALT    | MENU     |
 
-## Under develpement
+### Under develpement
 These keys are yet not supported due to the incompatibility of `Keyboard.h`.
 | Combination | Meaning     |
 | ---         | ---         |
