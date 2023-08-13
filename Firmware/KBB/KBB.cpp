@@ -9,15 +9,22 @@
 
 static bool win_locked = false;
 static bool fn_locked = false;
+static bool caps_locked = false;
 
-static void key_win_lock(void) {
+
+static void key_win_lock_toggle(void) {
   win_locked = !win_locked;
   digitalWrite(PIN_LED_WINLOCK, win_locked);
 }
 
-static void key_fn_lock(void) {
+static void key_fn_lock_toggle(void) {
   fn_locked = !fn_locked;
   digitalWrite(PIN_LED_FNLOCK, fn_locked);
+}
+
+static void key_caps_lock_toggle(void) {
+  caps_locked = !caps_locked;
+  digitalWrite(PIN_LED_CAPSLOCK, caps_locked);
 }
 
 
@@ -63,7 +70,7 @@ static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
     { def: '\\',              fn: NULL,               fn_press: NULL,         fn_release: NULL }
   },
   { // SEGMENT 4
-    { def: KEY_LEFT_GUI,      fn: NULL,               fn_press: key_win_lock, fn_release: NULL }, // Left WIN
+    { def: KEY_LEFT_GUI,      fn: NULL,               fn_press: key_win_lock_toggle, fn_release: NULL }, // Left WIN
     { def: 'x',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'v',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: 'h',               fn: NULL,               fn_press: NULL,         fn_release: NULL },
@@ -108,7 +115,7 @@ static struct char_holder Layout_Arrows[NUMBER_OF_ARROWS] = {
     { def: KEY_UP_ARROW,      fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: KEY_DOWN_ARROW,    fn: NULL,               fn_press: NULL,         fn_release: NULL },
     { def: KEY_LEFT_ARROW,    fn: NULL,               fn_press: NULL,         fn_release: NULL },
-    { def: KEY_RIGHT_ARROW,   fn: NULL,               fn_press: key_fn_lock,  fn_release: NULL }
+    { def: KEY_RIGHT_ARROW,   fn: NULL,               fn_press: key_fn_lock_toggle,  fn_release: NULL }
 };
 
 static unsigned int pin_map_main[NUMBER_OF_SEGS] = {
@@ -195,6 +202,10 @@ void KBB::begin()
   pinMode(PIN_LED0, OUTPUT);
   pinMode(PIN_LED1, OUTPUT);
   pinMode(PIN_LED2, OUTPUT);
+
+  digitalWrite(PIN_LED0, LOW);
+  digitalWrite(PIN_LED1, LOW);
+  digitalWrite(PIN_LED2, LOW);
 
   for (i = 0; i < NUMBER_OF_SEGS; i++) {
     pinMode(pin_map_main[i], INPUT);
@@ -288,6 +299,10 @@ void KBB::HandleSendChange(struct char_holder* key, bool press)
   if (FUNCTION_KEY == key->def) {
     fn_pressed = press;
     return;
+  }
+
+  if (KEY_CAPS_LOCK == key->def) {
+    key_caps_lock_toggle();
   }
 
   if ((fn_pressed && (key->fn || (press && key->fn_press) || (!press && key->fn_release))) || (fn_locked && key->fn && (KEY_ESC != key->def))) {
