@@ -6,3 +6,4 @@ Desktop_Utility/Console/lib/*
 *.kdev4
 DesktopApp/Console/lib/*
 *.exe
+*/OldVersions/*
