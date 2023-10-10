@@ -41,6 +41,8 @@ You can currently only see the details in Schematic and the Code files.
 | FN + WIN    | WIN LOCK |
 | FN + ->     | FN LOCK  |
 | FN + ALT    | MENU     |
+| FN + ESC    | `        |
+| FN + SHIFT + ESC | ~   |
 
 ### Under develpement
 These keys are yet not supported due to the incompatibility of `Keyboard.h`.
