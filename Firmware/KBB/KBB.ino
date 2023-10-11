@@ -16,9 +16,10 @@ void setup() {
 }
 
 void loop() {
+  int currentMillis = millis();
   MainInterface->ChangeSegment(segment);  //Find the next Target
   MainInterface->RefreshKeyMap();         //Refresh the actually pressed keys map
-  if(MainInterface->CompareLastKeys()){   //If it changed
+  if(MainInterface->CompareLastKeys(currentMillis)){   //If it changed
     MainInterface->SendSegment();         //Send the changes to host
     MainInterface->SaveToPastSegment();   //Copy the actual segment to the last
   }

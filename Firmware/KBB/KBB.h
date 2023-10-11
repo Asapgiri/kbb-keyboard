@@ -58,7 +58,10 @@ struct key_map {
   bool last;
   bool press;
   bool release;
+  const int debounceDelay = 50;
+  int lastDebounceTime = 0;
 };
+
 
 
 
@@ -75,7 +78,7 @@ private:
   void HandleSendChange(struct char_holder* key, bool press);
   inline void SendPress(char key);
   inline void SendRelease(char key);
-  bool CompareLastKeys(struct key_map* keymap, unsigned int len);
+  bool CompareLastKeys(struct key_map* keymap, unsigned int len, int currentMillis);
   char SaveToEEPROM();
   char ReadFromEEPROM();
   char EEPROM_init();
@@ -85,7 +88,7 @@ public:
   void ChangeSegment(unsigned int seg);
 
   void RefreshKeyMap();
-  bool CompareLastKeys();
+  bool CompareLastKeys(int currentMillis);
   void SendSegment();
   void SaveToPastSegment();
 
