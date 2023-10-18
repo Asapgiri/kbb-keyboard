@@ -45,6 +45,9 @@
 
 #define FUNCTION_KEY    0x1
 
+#define DEBOUNCE_TIME		0.3
+#define SAMPLE_FREQUENCY	10
+#define MAXIMUM			(DEBOUNCE_TIME * SAMPLE_FREQUENCY)
 
 struct char_holder {
   unsigned char def;
@@ -58,8 +61,7 @@ struct key_map {
   bool last;
   bool press;
   bool release;
-  const int debounceDelay = 50;
-  int lastDebounceTime = 0;
+  unsigned int integrator;  /* Will range from 0 to the specified MAXIMUM */
 };
 
 
@@ -78,7 +80,7 @@ private:
   void HandleSendChange(struct char_holder* key, bool press);
   inline void SendPress(char key);
   inline void SendRelease(char key);
-  bool CompareLastKeys(struct key_map* keymap, unsigned int len, int currentMillis);
+  bool CompareLastKeys(struct key_map* keymap, unsigned int len);
   char SaveToEEPROM();
   char ReadFromEEPROM();
   char EEPROM_init();
@@ -88,7 +90,7 @@ public:
   void ChangeSegment(unsigned int seg);
 
   void RefreshKeyMap();
-  bool CompareLastKeys(int currentMillis);
+  bool CompareLastKeys();
   void SendSegment();
   void SaveToPastSegment();
 

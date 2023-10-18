@@ -257,7 +257,7 @@ void KBB::SaveToPastSegment()
   }
 }
 
-bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len, int currentMillis) 
+bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len) 
 {
   unsigned int index = 0;
   bool ret = false;
@@ -267,22 +267,21 @@ bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len, int currentM
     keymap[index].release = false;
 
     if(keymap[index].last != keymap[index].actual) {
-      //Serial.print(segment);
-      //Serial.print(index);
-      //KeyDebounceMain.lastDebounceTime = currentMillis;
-      keymap[index].lastDebounceTime = currentMillis;
-    }
-
-    if ((currentMillis - keymap[index].lastDebounceTime) > keymap[index].debounceDelay){
-      if(keymap[index].actual) {
-          keymap[index].press = true;
-          //Serial.println(" press");
-        }
-        else{
-          keymap[index].release = true;
-          //Serial.println(" release");
-        }
+      if(keymap[index].actual == false) {
+        keymap[index].release = true;
+        if (keymap[index].integrator > 0)
+          keymap[index].integrator--;
+      }
+      else if (keymap[index].integrator < MAXIMUM){
+        keymap[index].integrator++;
+      }
+      if (keymap[index].integrator == 0)
+        keymap[index].press = false;
+      else if (keymap[index].integrator >= MAXIMUM){
+        keymap[index].press = true;
+        keymap[index].integrator = MAXIMUM;
         ret = true;
+      }
     }
   }
 
@@ -291,8 +290,8 @@ bool KBB::CompareLastKeys(struct key_map* keymap, unsigned int len, int currentM
 
 bool KBB::CompareLastKeys(int currentMillis) 
 {
-  return CompareLastKeys(KeyMapMain[segment], NUMBER_OF_SEGS, currentMillis)   ||
-         CompareLastKeys(KeyMapArrows,        NUMBER_OF_ARROWS, currentMillis);
+  return CompareLastKeys(KeyMapMain[segment], NUMBER_OF_SEGS)   ||
+         CompareLastKeys(KeyMapArrows,        NUMBER_OF_ARROWS);
 }
 
 void KBB::HandleSendChange(struct char_holder* key, bool press) 
