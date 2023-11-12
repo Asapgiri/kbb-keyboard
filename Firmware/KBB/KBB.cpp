@@ -27,6 +27,47 @@ static void key_caps_lock_toggle(void) {
   digitalWrite(PIN_LED_CAPSLOCK, caps_locked);
 }
 
+//static uint8_t special_keys[] = {
+//  KEY_LEFT_SLEEP,
+//  KEY_VOLUME_UP,
+//  KEY_VOLUME_DOWN,
+//  KEY_MUSIC_PLAY,
+//  KEY_MUSIC_NEXT,
+//  KEY_MUSIC_PREV
+//};
+//
+//static bool is_special_key(uint8_t k) {
+//  size_t i;
+//
+//  for (i = 0; i < sizeof(special_keys); i++) {
+//    if (k == special_keys[i]) {
+//      return true;
+//    }
+//  }
+//
+//  return false;
+//}
+
+static inline void key_update_buffer(struct key_map* keymap, bool new_read) {
+    unsigned int count;
+    unsigned int pholder;
+
+    keymap->buffer = keymap->buffer & ~(1U       << keymap->buffer_pos);
+    keymap->buffer = keymap->buffer |  (new_read << keymap->buffer_pos);
+
+    count = 0;
+    pholder = keymap->buffer;
+
+    while (pholder) {
+        count += pholder & 1;
+        pholder = pholder >> 1;
+    }
+
+    keymap->actual = count >= KEY_BUFFER_ACCEPT_TRUE;
+
+    keymap->buffer_pos++;
+    keymap->buffer_pos = keymap->buffer_pos & KEY_BUFFER_SIZE_FILER;
+}
 
 static struct char_holder Layout[NUMBER_OF_SEGS][KEYS_IN_SEGS] = {
   { // SEGMENT 0
@@ -145,8 +186,8 @@ void KBB::setMaps()
 {
   fn_pressed = false;
 
-  memset(KeyMapMain,   false, sizeof(KeyMapMain));
-  memset(KeyMapArrows, false, sizeof(KeyMapArrows));
+  memset(KeyMapMain,   0, sizeof(KeyMapMain));
+  memset(KeyMapArrows, 0, sizeof(KeyMapArrows));
 }
 
 KBB::KBB() 
@@ -231,7 +272,7 @@ void KBB::ChangeSegment(unsigned int seg)
   digitalWrite(PIN_ADDR_A0, seg & 0x1);
   digitalWrite(PIN_ADDR_A1, seg & 0x2);
   digitalWrite(PIN_ADDR_A2, seg & 0x4);
-  delayMicroseconds(50);
+  delayMicroseconds(SEGMENT_DELAY_US);
 }
 
 void KBB::RefreshKeyMap()  
@@ -239,10 +280,10 @@ void KBB::RefreshKeyMap()
   unsigned int i;
   /*The function refresh a segment from the keymap*/
   for (i = 0; i < NUMBER_OF_SEGS; i++) {
-    KeyMapMain[segment][i].actual = !digitalRead(pin_map_main[i]);
+    key_update_buffer(KeyMapMain[segment] + i, !digitalRead(pin_map_main[i]));
   }
   for (i = 0; i < NUMBER_OF_ARROWS; i++) {
-    KeyMapArrows[i].actual = !digitalRead(pin_map_arrows[i]);
+    key_update_buffer(KeyMapArrows + i, !digitalRead(pin_map_arrows[i]));
   }
 }
 
@@ -346,25 +387,11 @@ void KBB::SendSegment()
 }
 
 inline void KBB::SendPress(char key){
-  Keyboard.press(key);
-  //if (Serial.available())
-  //{
-  //  if (Serial.read() == WATERMARK)
-  //  {
-  //    SyncKeyMap();
-  //  }
-  //}
+    Keyboard.press(key);
 }
 
 inline void KBB::SendRelease(char key){
-  Keyboard.release(key);
-  //if (Serial.available())
-  //{
-  //  if (Serial.read() == WATERMARK)
-  //  {
-  //    SyncKeyMap();
-  //  }
-  //}
+    Keyboard.release(key);
 }
 
 void KBB::SyncKeyMap(){
