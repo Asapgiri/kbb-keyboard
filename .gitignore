@@ -7,3 +7,4 @@ Desktop_Utility/Console/lib/*
 DesktopApp/Console/lib/*
 *.exe
 caseing/Inventor/OldVersions/*
+*/build/*
