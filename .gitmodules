@@ -1,9 +1,9 @@
-[submodule "Firmware/KBB/Arduino-AVR-CMake"]
-	path = Firmware/KBB/Arduino-AVR-CMake
+[submodule "firmware/Arduino-AVR-CMake"]
+	path = firmware/Arduino-AVR-CMake
 	url = https://github.com/tttapa/Arduino-AVR-CMake
-[submodule "Firmware/KBB/Keyboard"]
-	path = Firmware/KBB/Keyboard
-	url = https://github.com/arduino-libraries/Keyboard
-[submodule "Firmware/KBB/ArduinoCore-avr"]
-	path = Firmware/KBB/ArduinoCore-avr
+[submodule "firmware/ArduinoCore-avr"]
+	path = firmware/ArduinoCore-avr
 	url = https://github.com/arduino/ArduinoCore-avr
+[submodule "firmware/Keyboard"]
+	path = firmware/Keyboard
+	url = https://github.com/arduino-libraries/Keyboard
