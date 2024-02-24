@@ -3,6 +3,9 @@
 #define _KBB_H_
 
 #include "MapInterface.h"
+//#include <HID-Project.h>
+
+#define SEGMENT_DELAY_US    50
 
 #define PIN_BOARD_EN  3
 
@@ -36,14 +39,19 @@
 #define NUMBER_OF_SEGS    8
 #define KEYS_IN_SEGS      8
 
-#define KEY_LEFT_SLEEP  NULL  // 0x5F
-#define KEY_VOLUME_UP   NULL  // 0xAF
-#define KEY_VOLUME_DOWN NULL  // 0xAE
-#define KEY_MUSIC_PLAY  NULL  // 0xB3
-#define KEY_MUSIC_NEXT  NULL  // 0xB0
-#define KEY_MUSIC_PREV  NULL  // 0xB1
+#define KEY_LEFT_SLEEP    NULL  //NULL  // 0x5F
+#define KEY_VOLUME_UP     NULL  //MEDIA_VOLUME_UP
+#define KEY_VOLUME_DOWN   NULL  //MEDIA_VOLUME_DOWN
+#define KEY_MUSIC_PLAY    NULL  //MEDIA_PLAY_PAUSE
+#define KEY_MUSIC_NEXT    NULL  //MEDIA_NEXT
+#define KEY_MUSIC_PREV    NULL  //MEDIA_PREVIOUS
 
 #define FUNCTION_KEY    0x1
+
+#define KEY_BUFFER_TYPE         unsigned int
+#define KEY_BUFFER_SIZE         (sizeof(KEY_BUFFER_TYPE) << 3)  //  * 8
+#define KEY_BUFFER_ACCEPT_TRUE  (sizeof(KEY_BUFFER_TYPE) >> 1)  //  / 2
+#define KEY_BUFFER_SIZE_FILER   (KEY_BUFFER_SIZE - 1)   // 0b00000111 = 0x07, accept from 0 to 7
 
 
 struct char_holder {
@@ -54,6 +62,8 @@ struct char_holder {
 };
 
 struct key_map {
+  KEY_BUFFER_TYPE buffer;
+  KEY_BUFFER_TYPE buffer_pos;
   bool actual;
   bool last;
   bool press;
