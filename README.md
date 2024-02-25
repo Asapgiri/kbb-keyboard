@@ -4,7 +4,7 @@
 We are making this keyboard for self improvement and fun. The 65% mechanical keyboard has it's original PCB design, case and plate model.
 
 ## To open the shematics and PCB design
-The PCB design was created in KiCad, so you can open it in the `keyboard/` folder.
+The PCB design was created in KiCad, so you can open it in the `kicad/default` folder.
 
 ## To run the code
 You only need to upload the code once using Arduino IDE.
@@ -23,26 +23,20 @@ You can currently only see the details in Schematic and the Code files.
 
 ## Function keys
 ### Supported
-| Combination | Meaning  |
-| ---         | ---      |
-| FN + 1      | F1       |
-| FN + 2      | F2       |
-| FN + 3      | F3       |
-| FN + 4      | F4       |
-| FN + 5      | F5       |
-| FN + 6      | F6       |
-| FN + 7      | F7       |
-| FN + 8      | F8       |
-| FN + 9      | F9       |
-| FN + 0      | F10      |
-| FN + -      | F11      |
-| FN + =      | F12      |
-| FN + INS    | PRT SCR  |
-| FN + WIN    | WIN LOCK |
-| FN + ->     | FN LOCK  |
-| FN + ALT    | MENU     |
-| FN + ESC    | `        |
-| FN + SHIFT + ESC | ~   |
+| Combination | Meaning  |     | Combination | Meaning  |     | Combination | Meaning  |
+| ---         | ---      | --- | ---         | ---      | --- | ---         | ---      |
+| FN + 1      | F1       |     | FN + 7      | F7       |     | FN + INS    | PRT SCR  |
+| FN + 2      | F2       |     | FN + 8      | F8       |     | FN + WIN    | WIN LOCK |
+| FN + 3      | F3       |     | FN + 9      | F9       |     | FN + ->     | FN LOCK  |
+| FN + 4      | F4       |     | FN + 0      | F10      |     | FN + ALT    | MENU     |
+| FN + 5      | F5       |     | FN + -      | F11      |     | FN + ESC    | `        |
+| FN + 6      | F6       |     | FN + =      | F12      |     | FN + SHIFT + ESC | ~   |
+
+
+
+
+
+
 
 ### Under develpement
 These keys are yet not supported due to the incompatibility of `Keyboard.h`.
