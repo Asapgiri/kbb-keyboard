@@ -7,3 +7,6 @@
 [submodule "firmware/Keyboard"]
 	path = firmware/Keyboard
 	url = https://github.com/arduino-libraries/Keyboard
+[submodule "kicad/lib/Keebio-Parts.pretty"]
+	path = kicad/lib/Keebio-Parts.pretty
+	url = https://github.com/keebio/Keebio-Parts.pretty
