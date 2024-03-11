@@ -32,14 +32,8 @@ You can currently only see the details in Schematic and the Code files.
 | FN + 5      | F5       |     | FN + -      | F11      |     | FN + ESC    | `        |
 | FN + 6      | F6       |     | FN + =      | F12      |     | FN + SHIFT + ESC | ~   |
 
-
-
-
-
-
-
-### Under develpement
-These keys are yet not supported due to the incompatibility of `Keyboard.h`.
+## Under develpement
+### These keys are yet not supported due to the incompatibility of `Keyboard.h`.
 | Combination | Meaning     |
 | ---         | ---         |
 | FN + ;      | PREV MUSIC  |
@@ -48,3 +42,10 @@ These keys are yet not supported due to the incompatibility of `Keyboard.h`.
 | FN + .      | VOLUME UP   |
 | FN + /      | PLAY        |
 | FN + END    | SLEEP       |
+
+### TODOs
+- Position USB ports on keyboard
+- Rewire LEDs and I2C
+
+# Known issues
+... Under develpement
